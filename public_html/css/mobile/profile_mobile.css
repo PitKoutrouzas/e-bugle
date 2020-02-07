@@ -1,0 +1,11 @@
+.table-responsive th {    display: table;  width:50%;    }
+.table-responsive td {    display: table-row; }
+.blogImg {max-width:450px; height:200px;}
+#searchbar { text-align: center;}
+#searchth {    display: inline;}
+#searchinput { width: 75%; !important;}
+#profilelink {margin-left: -5%; !important;}
+#loginlink {margin-left: -5%; !important;}
+
+#profilecontent {margin-left: 22% !important; width: 150% !important;}
+.profileimageviewer {width: 100% !important;}

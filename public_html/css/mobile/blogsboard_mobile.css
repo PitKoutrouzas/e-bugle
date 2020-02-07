@@ -1,0 +1,19 @@
+.table-responsive th {    display: table;  width:50%;    }
+.table-responsive td {    display: table-row; }
+.blogImg {max-width:50%; !important; max-height:200px; !important; padding-right: 0% !important;}
+#searchbar { text-align: center;}
+#searchth {    display: inline;}
+#searchinput { width: 75%; !important;}
+#profilelink {margin-left: -5%; !important;}
+#loginlink {margin-left: -5%; !important;}
+
+#profilebox {display: none;}
+#blogsfeed {margin-left: -5%; !important;}
+.formatted_description {width: 50%;}
+
+.details_exp { text-align: center; !important; width: 400% !important}
+
+/*#header { display: initial !important;}*/
+.formatted_title { margin-right: 75% !important;}
+/*.table-responsive {margin-left: auto;}*/
+#covertitle {margin-left: 20% !important; margin-right: 20% !important;}
