@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather" />
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <style type="text/css">
 
@@ -214,61 +215,22 @@
             border-color: #d9534f !important;
         }
 
-        @media  all and (min-width: 1419px) {
-            #searchinput { width: 40%; !important;}
-            #profilelink {margin-left: -50%; !important;}
-            #loginlink {margin-left: -105%; !important;}
-
-            #newseditTitleHead { text-align: center; margin-left: 0%;}
-            #blogdescription { margin-left: -0%; margin-right: -0%;}
-        }
-
-        @media  all and (min-width: 768px) and (max-width:1418px) {
-            .table-responsive:not(#header) th {    display: table;  width:100%;    }
-            .table-responsive:not(#header) td {    display: table-row; }
-            #searchbar { text-align: right;}
-            #searchinput { display: inline; width: 40%; !important;}
-            #profilelink {margin-left: 25%; !important;}
-            #loginlink {margin-left: 55%; !important;}
-
-            img {max-width:100%; height:100%;}
-            iframe {max-width:100%; height:100%;}
-            #searchbar { margin-left: 0%; text-align: center;}
-            #searchinput { display: inline; margin-left: 0%; text-align: center; }
-
-            #newseditTitleHead { text-align: center; margin-left: 0%;}
-            #blogdescription { margin-left: -23%; margin-right: -23%;}
-
-        }
-
-        @media  all and (max-width:767px) {
-            .table-responsive th {    display: table;  width:50%;    }
-            .table-responsive td {    display: table-row; }
-            .blogImg {max-width:450px; height:200px;}
-            #searchbar { text-align: center;}
-            #searchth {    display: inline;}
-            #searchinput { width: 75%; !important;}
-            #profilelink {margin-left: -5%; !important;}
-            #loginlink {margin-left: -5%; !important;}
-
-            #titleline { display: none;}
-            #head { margin-left: 17% !important; }
-            #newseditTitleHead { text-align: left; margin-left: 10%;}
-            #blogdescription { margin-left: -23%; margin-right: -23%;}
-            #searchbar { text-align: center; margin-left: 0%; }
-            #searchinput { width: 75%; !important; margin-left: 0%;}
-            img {max-width:100%; height:100%;}
-            iframe {max-width:100%; height:100%;}
-
-
-        }
-
     </style>
     <meta charset="utf-8">
     <!-- Latest compiled JavaScript -->
 
     <title>Blogs</title>
     <!-- Latest compiled and minified CSS -->
+
+    <?php if($agent->isDesktop()): ?>
+        <link rel="stylesheet" href="<?php echo e(asset('css/desktop/blog_desktop.css')); ?>">
+    <?php elseif($agent->isTablet()): ?>
+        <link rel="stylesheet" href="<?php echo e(asset('css/tablet/blog_tablet.css')); ?>">
+    <?php elseif($agent->isMobile()): ?>
+        <link rel="stylesheet" href="<?php echo e(asset('css/mobile/blog_mobile.css')); ?>">
+    <?php else: ?>
+        <link rel="stylesheet" href="<?php echo e(asset('css/desktop/blog_desktop.css')); ?>">
+    <?php endif; ?>
 
     <?php if(isset($blog)): ?>
         <title><?php echo e($blog->blogTitle); ?></title>
@@ -418,34 +380,61 @@
 
 
         <br/>
-        <table id="header" class="table-responsive" style="width: 122%; margin-left: -15%; border: 0;">
-            <th>
+        <table id="header" class="table-responsive" style="width: 122%; margin-left: -15%; border: 0; margin-top: -10px;">
+            <th style="width: 380px;">
                 <div>
-                    <a id="blogslink" class="btn btn-link" style="float: left; text-decoration: none;  margin-left: -5%; font-size: 20px;" href="<?php echo e(url("/blogsboard")); ?>">Blogs</a>
+                    <a href="<?php echo e(url('/blogsfeed')); ?>">
+                        <img style="height: 70px; margin-left: 90px;" src="<?php echo e(config('app.logo')); ?>">
+                    </a>
+                    <br/>
+                </div>
+            </th>
+            <th <?php if(Auth::check()): ?> style="padding-right: 30px;" <?php else: ?> style="padding-right: 50px;" <?php endif; ?>>
+                <?php if(Auth::check()): ?>
+                <div>
+                    <a id="blogslink" class="btn btn-link" style="float: left; text-decoration: none;  margin-left: -5%; font-size: 20px;" href="<?php echo e(url("/blogsboard/". Auth::id())); ?>">My Blogs</a>
 
                     <text id="titlebread" style="float: left; margin-left: 5px; "></text>
                     <br/>
                 </div>
+                    <?php endif; ?>
             </th>
-            <th>
-                <div>
-                    <a id="profilelink" class="btn btn-link" href="<?php echo e(url('/profile')); ?>" style="float: left; text-decoration: none; font-size: 20px;">Profile</a>
+                <th <?php if(Auth::check()): ?> style="padding-right: 20px;" <?php else: ?> style="padding-right: 40px;" <?php endif; ?>>
+                    <?php if(Auth::check()): ?>
+                    <div>
+                        <a id="profilelink" class="btn btn-link" href="<?php echo e(url("/profile/". Auth::id())); ?>" style="float: left; text-decoration: none; font-size: 20px;">My Profile</a>
 
-                    <text id="titlebread2" style="float: left; margin-left: 5px; "></text>
-                    <br/>
-                </div>
-            </th>
-            <th>
-                <div>
-                    <a id="loginlink" class="btn btn-link" style="float: left; text-decoration: none;  font-size: 20px;" href="#">Log in</a>
+                        <text id="titlebread2" style="float: left; margin-left: 5px; "></text>
+                        <br/>
+                    </div>
+                        <?php endif; ?>
+                </th>
+            <?php if(Auth::guest()): ?>
+                <th>
+                    <div>
+                        <a id="loginlink" class="btn btn-link" style="float: left; text-decoration: none;  font-size: 20px;" href="<?php echo e(url('/login')); ?>">Log In</a>
 
-                    <text id="titlebread3" style="float: left; margin-left: 5px; "></text>
-                    <br/>
-                </div>
-            </th>
+                        <text id="titlebread3" style="float: left; margin-left: 5px; "></text>
+                        <br/>
+                    </div>
+                </th>
+            <?php else: ?>
+                <th>
+                    <div>
+                        <a id="loginlink" class="btn btn-link" style="float: left; text-decoration: none;  font-size: 20px;" href="<?php echo e(route('logout')); ?>" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">Log out</a>
+
+                        <form id="logout-form" action="<?php echo e(route('logout')); ?>" method="POST" style="display: none;">
+                            <?php echo e(csrf_field()); ?>
+
+                        </form>
+                        <br/>
+                    </div>
+                </th>
+            <?php endif; ?>
             <th id="searchth" style="text-align: right;">
                 <div id="searchbar" style="padding-bottom: 10px;">
-                    <?php echo Form::open(['url'=>'blogsboard']); ?>
+                    <?php echo Form::open(['url'=>'blogsfeed']); ?>
 
                     <input id="searchinput" type="text" class="form-control" style="display: inline; font-weight: normal;" name="namesearch" placeholder="<find blogs with keywords>">
 
@@ -467,8 +456,13 @@
             <header>
                 <section class="features" style="padding-top: 0 !important;">
                     <br/>
-                    <div style="margin-top: -1%; box-shadow: 1px 1px 50px gray; margin-left: -50%; margin-right: -50%; background-color: #151515; background-image: url('https://images.wallpaperscraft.com/image/bulb_lighting_rope_130830_2048x1152.jpg');
-                     background-position: center; background-repeat: no-repeat;  ">
+                        <?php if($profile->coverImg != null): ?>
+                            <div style="margin-top: -1%; box-shadow: 1px 1px 50px gray; margin-left: -50%; margin-right: -50%; background-image: url(<?php echo e(asset('uploads/users/'.$profile->userid.'/profile/cover/'.$profile->coverImg)); ?>);
+                                    background-position: center; background-repeat: no-repeat;  background-color: #151515;">
+                                <?php else: ?>
+                                    <div style="margin-top: -1%; box-shadow: 1px 1px 50px gray; margin-left: -50%; margin-right: -50%; background-image: url('https://images.wallpaperscraft.com/image/bulb_lighting_rope_130830_2048x1152.jpg');
+                            background-position: center; background-repeat: no-repeat;  background-color: #151515;">
+                                        <?php endif; ?>
 
                         <br/>
                         <?php if(isset($blog)): ?>
@@ -476,6 +470,9 @@
 
                         <br/>
 
+                        <?php if(Auth::check()): ?>
+
+                            <?php if(Auth::id() == $blog->userid): ?>
                         <table id="head" class="table-responsive" style="left:200px; margin-top: -1%; margin-left: 30%; margin-right: 50%; width: auto; border: none;">
                             <th class="titlehead" style="text-align:center; !important; width: 100%; padding: 10px; padding-left: 0px;">
                                 <a id="newblogbtn" href="<?php echo e(url('/blog/0')); ?>" class="btn btn-info btn-lg" style="color: white !important;">
@@ -493,6 +490,9 @@
                                 </a>
                             </th>
                         </table>
+                                <?php endif; ?>
+                            <?php endif; ?>
+
                         <?php else: ?>
                             <h2 style="color: white; letter-spacing: 8px;">NEW BLOG</h2>
                         <?php endif; ?>
@@ -540,10 +540,10 @@
                                         <table id="example" class="table"></table>
                                     </div>
 
-                                    <p style="text-align: left; margin-left: 10%; font-size: small;"><span class="glyphicon glyphicon-user"></span> Panagiotis Koutrouzas <span class="glyphicon glyphicon-time" style="margin-left: 10px;"></span> <?php echo e(date('j M Y H:i', strtotime($blog->updated_at))); ?></p>
+                                    <p style="text-align: left; margin-left: 10%; font-size: small;"><span class="glyphicon glyphicon-user"></span><a href="<?php echo e(url("/blogsboard/". $profile->userid)); ?>"> <?php echo e($blog->name); ?> </a><span class="glyphicon glyphicon-time" style="margin-left: 10px;"></span> <?php echo e(date('j M Y H:i', strtotime($blog->updated_at))); ?></p>
                                     <br/>
                                     <?php if($blog->imgUpload !== null): ?>
-                                        <img class="newsimage" src="<?php echo e(asset('uploads/'.$blog->imgUpload)); ?>" name="descr_img" id="descr_img" style="max-height:80%; max-width: 80%;"/></img>
+                                        <img class="newsimage" src="<?php echo e(asset('uploads/users/'.$profile->userid.'/blogs/'.$blog->imgUpload)); ?>" name="descr_img" id="descr_img" style="max-height:80%; max-width: 80%;"/></img>
                                         <br/><br/><br/>
                                     <?php endif; ?>
                                     <div id="descr" value="<?php echo e($blog->description); ?>" style="text-align:justify; left: 200px; margin-left: 10%; margin-right: 10%; font-size: 17px; white-space: pre-wrap;">
@@ -577,7 +577,7 @@
                             <br/><br/>
                             <div type="text" id="blogView" name="blogView" value="gfd" class="feature" style="text-align:justify; left: 200px; margin-left: 10%; margin-right: 10%; font-size: 17px; white-space: pre-wrap;">
                             </div>
-                            <script>setInterval(showBlogDetails, 250)</script>
+                            <script>setInterval(showBlogDetails, 2500)</script>
 
                             <br/>
                                 <br/>

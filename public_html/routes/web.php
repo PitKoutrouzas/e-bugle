@@ -11,15 +11,23 @@
 |
 */
 
-Route::get('/', 'BlogsController@index');
-
+Route::get('/', 'BlogsController@feed');
+Route::get('/laravel', 'BlogsController@feed');
 
 Route::get('contactus', 'ContactUsController@index');
-Route::get('blogsboard', 'BlogsController@index');
-Route::get('profile', 'ProfileController@index');
-Route::post('blogsboard', 'BlogsController@index');
+Route::get('blogsboard/{id}', 'BlogsController@index');
+Route::post('blogsboard/{id}', 'BlogsController@index');
+Route::get('profile/{id}', 'ProfileController@index');
+Route::post('profileEdit', 'ProfileController@editProfile');
+Route::get('login', 'LoginController@index');
 Route::post('blogsboardCreate', 'BlogsController@createBlog');
 Route::post('blogsboardEdit/{id}', 'BlogsController@editBlog');
 Route::get('blogsboardDelete/{id}', 'BlogsController@deleteBlog');
 Route::get('blog/{id}', 'BlogsController@showBlog');
+Route::get('blogsfeed', 'BlogsController@feed');
+Route::post('blogsfeed', 'BlogsController@feed');
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

@@ -1,0 +1,9 @@
+.table-responsive:not(#header) th {    display: table;  width:100%;    }
+.table-responsive:not(#header) td {    display: table-row; }
+#searchbar { text-align: right;}
+#searchinput { display: inline; width: 40%; !important;}
+#profilelink {margin-left: 25%; !important;}
+#loginlink {margin-left: 55%; !important;}
+
+#profilebox {display: none;}
+#blogsfeed {margin-left: -5%; !important;}

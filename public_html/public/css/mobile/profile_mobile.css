@@ -1,0 +1,42 @@
+.table-responsive th {    display: table;  width:50%;    }
+.table-responsive td {    display: table-row; }
+.blogImg {max-width:450px; height:200px;}
+#searchbar { text-align: center;}
+#searchth {    display: inline;}
+#searchinput { width: 75%; !important;}
+#profilelink {margin-left: -5%; !important;}
+#loginlink {margin-left: -5%; !important;}
+
+#editcoverimg_btn {width: 30%; !important;}
+
+/*#profilecontent {margin-left: 22% !important; width: 150% !important;}*/
+.profileimageviewer {width: 100% !important;}
+
+#aboutbox {width: 100% !important;}
+
+#profimg_description {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(29, 106, 154, 0.72);
+    color: #fff;
+    visibility: hidden;
+    opacity: 0;
+
+    /* transition effect. not necessary */
+    transition: opacity .2s, visibility .2s;
+}
+
+.profimg_wrap {
+    max-width: 400px;
+    display: inline-block;
+    border-radius: 50%;
+    position: relative;
+}
+
+.profimg_wrap:hover #profimg_description {
+    visibility: visible;
+    opacity: 1;
+}

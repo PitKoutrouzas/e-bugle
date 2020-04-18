@@ -1,0 +1,37 @@
+.table-responsive:not(#header) th {    display: table;  width:100%;    }
+.table-responsive:not(#header) td {    display: table-row; }
+#searchbar { text-align: right;}
+#searchinput { display: inline; width: 40%; !important;}
+#profilelink {margin-left: 25%; !important;}
+#loginlink {margin-left: 55%; !important;}
+
+#editcoverimg_btn {width: 15%; !important;}
+
+.profileimageviewer {width: 100% !important;}
+
+#profimg_description {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(29, 106, 154, 0.72);
+    color: #fff;
+    visibility: hidden;
+    opacity: 0;
+
+    /* transition effect. not necessary */
+    transition: opacity .2s, visibility .2s;
+}
+
+.profimg_wrap {
+    max-width: 400px;
+    display: inline-block;
+    border-radius: 50%;
+    position: relative;
+}
+
+.profimg_wrap:hover #profimg_description {
+    visibility: visible;
+    opacity: 1;
+}

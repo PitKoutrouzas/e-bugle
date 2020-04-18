@@ -6,11 +6,12 @@ use App\Blog;
 use App\Http\Constants;
 use App\Profile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Jenssegers\Agent\Agent;
 
 class BlogsController extends Controller
 {
-    public function index(Request $request){
+    public function index($id, Request $request){
 
         $relpath = $this->getConstants();
         $userLoggedArr = $this->checkUserLogged();
@@ -19,34 +20,65 @@ class BlogsController extends Controller
             if ($request->request->get("namesearch") != null){
                 $retrieveBlogs = $this->retrieveBlogsByKeywords($request);
             } else {
-                $retrieveBlogs = $this->retrieveBlogsByTitle();
+                $retrieveBlogs = $this->retrieveBlogsByTitle($id, true);
             }
         } else {
-            $retrieveBlogs = $this->retrieveBlogsByTitle();
+            $retrieveBlogs = $this->retrieveBlogsByTitle($id, true);
         }
 
         $blogs = $retrieveBlogs["query_results"];
         $blogs = $this->addBlogViewFormatting($blogs, $request);
 
         $namesearch = $retrieveBlogs["namesearch"];
-        $profile = Profile::getProfileDetails();
+        $profile = Profile::getProfileDetails($id);
 
         $agent = new Agent();
 
         return view("/blogsboard", compact("newschange", "relpath", "userLoggedArr", "blogs", "namesearch", "profile", "agent"));
     }
 
-    public function show(){
+    public function feed(Request $request){
 
         $relpath = $this->getConstants();
         $userLoggedArr = $this->checkUserLogged();
 
-        $retrieveBlogs = $this->retrieveBlogsByTitle();
+        if($request != null && !empty($request)) {
+            if ($request->request->get("namesearch") != null){
+                $retrieveBlogs = $this->retrieveBlogsByKeywords($request);
+            } else {
+                $retrieveBlogs = $this->retrieveBlogsByTitle(0,false);
+            }
+        } else {
+            $retrieveBlogs = $this->retrieveBlogsByTitle(0,false);
+        }
+
+        $blogs = $retrieveBlogs["query_results"];
+        $blogs = $this->addBlogViewFormatting($blogs, $request);
+
+        $namesearch = $retrieveBlogs["namesearch"];
+
+        if(Auth::check()){
+            $profile = Profile::getProfileDetails(Auth::id());
+        } else {
+            $profile = Profile::getProfileDetails(0);
+        }
+
+        $agent = new Agent();
+
+        return view("/blogsfeed", compact("newschange", "relpath", "userLoggedArr", "blogs", "namesearch", "profile", "agent"));
+    }
+
+    public function show($id){
+
+        $relpath = $this->getConstants();
+        $userLoggedArr = $this->checkUserLogged();
+
+        $retrieveBlogs = $this->retrieveBlogsByTitle($id,true);
         $blogs = $retrieveBlogs["query_results"];
         $blogs = $this->addBlogViewFormatting($blogs, null);
 
         $namesearch = $retrieveBlogs["namesearch"];
-        $profile = Profile::getProfileDetails();
+        $profile = Profile::getProfileDetails($id);
 
         $agent = new Agent();
 
@@ -55,10 +87,26 @@ class BlogsController extends Controller
 
     public function showBlog($id){
 
-        $blog = Blog::all()->where('id', $id)->first();
+        $blog = Blog::join('users', 'blogs.userid', '=', 'users.id')
+            ->select('blogs.*', 'users.name')
+            ->where('blogs.id', $id)->first();
+
+        if ($blog == null){
+            $userid = Auth::id();
+        } else {
+            $userid = $blog->userid;
+        }
+
+//        $userid = 0;
+//        if (Auth::check()){
+//            $userid = Auth::id();
+//        }
+
+        $profile = Profile::where('userid', $userid)->get()->first();
+
         $agent = new Agent();
 
-        return view("/blog", compact("blog", "agent"));
+        return view("/blog", compact("blog", "profile", "agent"));
     }
 
     public function deleteBlog($id){
@@ -69,7 +117,7 @@ class BlogsController extends Controller
 
         Blog::where('id', $id)->delete();
 
-        return $this->show();
+        return $this->show(Auth::id());
     }
 
     public function getConstants(){
@@ -95,14 +143,18 @@ class BlogsController extends Controller
         );
     }
 
-    public function retrieveBlogsByTitle()
+    public function retrieveBlogsByTitle($id, $isMyBlogs)
     {
         if (isset($_POST["namesearch"])) {
             $searchquery = $_POST["namesearch"];
             if (!empty($searchquery)) {
-                $_SESSION["searchquery"] = Blog::where('blogTitle', 'like', '%' . $searchquery . '%')->orderByDesc('updated_at')->paginate(5);
+                $_SESSION["searchquery"] = Blog::join('users', 'blogs.userid', '=', 'users.id')
+                    ->select('blogs.*', 'users.name')
+                    ->where('blogTitle', 'like', '%' . $searchquery . '%')->orderByDesc('updated_at')->paginate(5);
             } else {
-                $_SESSION["searchquery"] = Blog::orderByDesc('updated_at')->paginate(5);
+                $_SESSION["searchquery"] = Blog::join('users', 'blogs.userid', '=', 'users.id')
+                    ->select('blogs.*', 'users.name')
+                    ->orderByDesc('updated_at')->paginate(5);
             }
 
             return array(
@@ -112,9 +164,12 @@ class BlogsController extends Controller
         } else {
             if (isset($newschange) && $newschange > 0) {
                 $result = Blog::where('id', $newschange)->first();
+            } else if ($isMyBlogs == true){
+                $result = $this->retrieveUserBlogs($id);
             } else {
-                $result = Blog::orderByDesc('updated_at')->paginate(5);
+                $result = $this->retrieveAllBlogs();
             }
+
 
             return array(
                 "query_results" => $result,
@@ -123,13 +178,32 @@ class BlogsController extends Controller
         }
     }
 
+    public function retrieveUserBlogs($id){
+            return Blog::join('users', 'blogs.userid', '=', 'users.id')
+                ->select('blogs.*', 'users.name')
+                ->where('userid', $id)->orderByDesc('updated_at')->paginate(5);
+    }
+
+    public function retrieveAllBlogs(){
+        $allblogs = Blog::join('users', 'blogs.userid', '=', 'users.id')
+            ->select('blogs.*', 'users.name')
+            ->orderByDesc('updated_at')
+            ->paginate(10);
+
+        return $allblogs;
+    }
+
     public function retrieveBlogsByKeywords(Request $request){
         $keywords = explode(" ", $request->request->get("namesearch"));
 
-        $query_results = Blog::where('blogTitle', 'like', '%' . $request->request->get("namesearch") . '%')
+        $query_results = Blog::join('users', 'blogs.userid', '=', 'users.id')
+            ->select('blogs.*', 'users.name')
+            ->where('blogTitle', 'like', '%' . $request->request->get("namesearch") . '%')
             ->orWhere('description', 'like', '%' . $request->request->get("namesearch") . '%');
 
-        $query_results2 = Blog::where('blogTitle', 'like', '%' . $keywords[0] . '%')
+        $query_results2 = Blog::join('users', 'blogs.userid', '=', 'users.id')
+            ->select('blogs.*', 'users.name')
+            ->where('blogTitle', 'like', '%' . $keywords[0] . '%')
             ->orWhere('description', 'like', '%' . $keywords[0] . '%');
 
         if (count($keywords,COUNT_NORMAL) > 1) {
@@ -163,17 +237,23 @@ class BlogsController extends Controller
         $blog = new Blog();
         $blog->blogTitle = $blogTitle;
         $blog->description = $blogcontent;
-        $blog->userid = 0;
+
+        if (Auth::check()){
+            $blog->userid = Auth::id();
+        } else {
+            $blog->userid = 0;
+        }
+
 
         if ($blogImg !== null){
             $blogImgFileName = date('d_m_Y').'_'.$blogImg->getClientOriginalName();
             $blog->imgUpload = $blogImgFileName;
-            $blogImg->move(public_path('/uploads'), $blogImgFileName);
+            $blogImg->move(public_path('/uploads/users/'.Auth::id().'/blogs'), $blogImgFileName);
         }
 
         $blog->save();
 
-        return $this->show();
+        return $this->show(Auth::id());
     }
 
     public function editBlog($id, Request $request){
@@ -185,12 +265,13 @@ class BlogsController extends Controller
         if ($blogImg !== null){
             $previousImg = Blog::where('id', $id)->first()->imgUpload;
             if ($previousImg !== null){
-                unlink(public_path('/uploads/'. Blog::where('id', $id)->first()->imgUpload));
+                dd("hi");
+                unlink(public_path('/uploads/users/'.Auth::id().'/blogs/'. $previousImg));
             }
             $blogImgFileName = date('d_m_Y').'_'.$blogImg->getClientOriginalName();
             Blog::where('id', $id)
                 ->update(array('blogTitle' => $blogTitle, 'description' => $blogcontent, 'imgUpload' => $blogImgFileName));
-            $blogImg->move(public_path('/uploads'), $blogImgFileName);
+            $blogImg->move(public_path('/uploads/users/'.Auth::id().'/blogs'), $blogImgFileName);
         } else {
             Blog::where('id', $id)
                 ->update(array('blogTitle' => $blogTitle, 'description' => $blogcontent));
@@ -200,7 +281,7 @@ class BlogsController extends Controller
 //        $blog->description = $blogcontent;
 
 
-        return $this->show();
+        return $this->show(Auth::id());
     }
 
     public function addBlogViewFormatting($blogs, $request){

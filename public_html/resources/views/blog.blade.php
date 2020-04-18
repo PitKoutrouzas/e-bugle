@@ -380,34 +380,60 @@
 
 
         <br/>
-        <table id="header" class="table-responsive" style="width: 122%; margin-left: -15%; border: 0;">
-            <th>
+        <table id="header" class="table-responsive" style="width: 122%; margin-left: -15%; border: 0; margin-top: -10px;">
+            <th style="width: 380px;">
                 <div>
-                    <a id="blogslink" class="btn btn-link" style="float: left; text-decoration: none;  margin-left: -5%; font-size: 20px;" href="{{url("/blogsboard")}}">Blogs</a>
+                    <a href="{{url('/blogsfeed')}}">
+                        <img style="height: 70px; margin-left: 90px;" src="{{config('app.logo')}}">
+                    </a>
+                    <br/>
+                </div>
+            </th>
+            <th @if (Auth::check()) style="padding-right: 30px;" @else style="padding-right: 50px;" @endif>
+                @if (Auth::check())
+                <div>
+                    <a id="blogslink" class="btn btn-link" style="float: left; text-decoration: none;  margin-left: -5%; font-size: 20px;" href="{{url("/blogsboard/". Auth::id())}}">My Blogs</a>
 
                     <text id="titlebread" style="float: left; margin-left: 5px; "></text>
                     <br/>
                 </div>
+                    @endif
             </th>
-            <th>
-                <div>
-                    <a id="profilelink" class="btn btn-link" href="{{url('/profile')}}" style="float: left; text-decoration: none; font-size: 20px;">Profile</a>
+                <th @if (Auth::check()) style="padding-right: 20px;" @else style="padding-right: 40px;" @endif>
+                    @if (Auth::check())
+                    <div>
+                        <a id="profilelink" class="btn btn-link" href="{{url("/profile/". Auth::id())}}" style="float: left; text-decoration: none; font-size: 20px;">My Profile</a>
 
-                    <text id="titlebread2" style="float: left; margin-left: 5px; "></text>
-                    <br/>
-                </div>
-            </th>
-            <th>
-                <div>
-                    <a id="loginlink" class="btn btn-link" style="float: left; text-decoration: none;  font-size: 20px;" href="#">Log in</a>
+                        <text id="titlebread2" style="float: left; margin-left: 5px; "></text>
+                        <br/>
+                    </div>
+                        @endif
+                </th>
+            @if (Auth::guest())
+                <th>
+                    <div>
+                        <a id="loginlink" class="btn btn-link" style="float: left; text-decoration: none;  font-size: 20px;" href="{{url('/login')}}">Log In</a>
 
-                    <text id="titlebread3" style="float: left; margin-left: 5px; "></text>
-                    <br/>
-                </div>
-            </th>
+                        <text id="titlebread3" style="float: left; margin-left: 5px; "></text>
+                        <br/>
+                    </div>
+                </th>
+            @else
+                <th>
+                    <div>
+                        <a id="loginlink" class="btn btn-link" style="float: left; text-decoration: none;  font-size: 20px;" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">Log out</a>
+
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            {{ csrf_field() }}
+                        </form>
+                        <br/>
+                    </div>
+                </th>
+            @endif
             <th id="searchth" style="text-align: right;">
                 <div id="searchbar" style="padding-bottom: 10px;">
-                    {!! Form::open(['url'=>'blogsboard']) !!}
+                    {!! Form::open(['url'=>'blogsfeed']) !!}
                     <input id="searchinput" type="text" class="form-control" style="display: inline; font-weight: normal;" name="namesearch" placeholder="<find blogs with keywords>">
 
                     <input class="form-control" type="image" src="http://seiis.cut.ac.cy/~seiis_lab/iconsearch.png" style="display: inline-block; width:40px; top: 11.5px;  line-height: 0.54643 !important; position: relative; padding-left: 3px; padding-right: 3px; padding-bottom: 1px; padding-top: 1px; border: none; outline: none; box-shadow: none;"/>
@@ -427,8 +453,13 @@
             <header>
                 <section class="features" style="padding-top: 0 !important;">
                     <br/>
-                    <div style="margin-top: -1%; box-shadow: 1px 1px 50px gray; margin-left: -50%; margin-right: -50%; background-color: #151515; background-image: url('https://images.wallpaperscraft.com/image/bulb_lighting_rope_130830_2048x1152.jpg');
-                     background-position: center; background-repeat: no-repeat;  ">
+                        @if ($profile->coverImg != null)
+                            <div style="margin-top: -1%; box-shadow: 1px 1px 50px gray; margin-left: -50%; margin-right: -50%; background-image: url({{asset('uploads/users/'.$profile->userid.'/profile/cover/'.$profile->coverImg)}});
+                                    background-position: center; background-repeat: no-repeat;  background-color: #151515;">
+                                @else
+                                    <div style="margin-top: -1%; box-shadow: 1px 1px 50px gray; margin-left: -50%; margin-right: -50%; background-image: url('https://images.wallpaperscraft.com/image/bulb_lighting_rope_130830_2048x1152.jpg');
+                            background-position: center; background-repeat: no-repeat;  background-color: #151515;">
+                                        @endif
 
                         <br/>
                         @if (isset($blog))
@@ -436,7 +467,10 @@
 {{--                        <h2 id="covertitle" style="text-align: center; color: white;"></h2>--}}
                         <br/>
 
-                        <table id="head" class="table-responsive" style="left:200px; margin-top: -1%; margin-left: 30%; margin-right: 50%; width: auto; border: none; visibility: hidden;">
+                        @if (Auth::check())
+
+                            @if (Auth::id() == $blog->userid)
+                        <table id="head" class="table-responsive" style="left:200px; margin-top: -1%; margin-left: 30%; margin-right: 50%; width: auto; border: none;">
                             <th class="titlehead" style="text-align:center; !important; width: 100%; padding: 10px; padding-left: 0px;">
                                 <a id="newblogbtn" href="{{url('/blog/0')}}" class="btn btn-info btn-lg" style="color: white !important;">
                                     <span class="glyphicon glyphicon-plus"></span> New Blog
@@ -453,6 +487,9 @@
                                 </a>
                             </th>
                         </table>
+                                @endif
+                            @endif
+
                         @else
                             <h2 style="color: white; letter-spacing: 8px;">NEW BLOG</h2>
                         @endif
@@ -500,10 +537,10 @@
                                         <table id="example" class="table"></table>
                                     </div>
 
-                                    <p style="text-align: left; margin-left: 10%; font-size: small;"><span class="glyphicon glyphicon-user"></span> Panagiotis Koutrouzas <span class="glyphicon glyphicon-time" style="margin-left: 10px;"></span> {{date('j M Y H:i', strtotime($blog->updated_at))}}</p>
+                                    <p style="text-align: left; margin-left: 10%; font-size: small;"><span class="glyphicon glyphicon-user"></span><a href="{{url("/blogsboard/". $profile->userid)}}"> {{$blog->name}} </a><span class="glyphicon glyphicon-time" style="margin-left: 10px;"></span> {{date('j M Y H:i', strtotime($blog->updated_at))}}</p>
                                     <br/>
                                     @if ($blog->imgUpload !== null)
-                                        <img class="newsimage" src="{{asset('public/uploads/'.$blog->imgUpload)}}" name="descr_img" id="descr_img" style="max-height:80%; max-width: 80%;"/></img>
+                                        <img class="newsimage" src="{{asset('uploads/users/'.$profile->userid.'/blogs/'.$blog->imgUpload)}}" name="descr_img" id="descr_img" style="max-height:80%; max-width: 80%;"/></img>
                                         <br/><br/><br/>
                                     @endif
                                     <div id="descr" value="{{$blog->description}}" style="text-align:justify; left: 200px; margin-left: 10%; margin-right: 10%; font-size: 17px; white-space: pre-wrap;">
@@ -535,7 +572,7 @@
                             <br/><br/>
                             <div type="text" id="blogView" name="blogView" value="gfd" class="feature" style="text-align:justify; left: 200px; margin-left: 10%; margin-right: 10%; font-size: 17px; white-space: pre-wrap;">
                             </div>
-                            <script>setInterval(showBlogDetails, 250)</script>
+                            <script>setInterval(showBlogDetails, 2500)</script>
 
                             <br/>
                                 <br/>

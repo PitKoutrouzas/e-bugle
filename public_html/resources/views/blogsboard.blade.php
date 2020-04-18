@@ -250,65 +250,87 @@
     @if($userLoggedArr["type"] > 1)
         <latestnews class="latestnews">
         </latestnews>
-    @endif
+@endif
 
 <!-- These are the forms that are showed when the Add,Edit,Delete News buttons are clicked -->
 
     <newscolumn class="newscolumn" id="newscolumn" style="">
 
         <?php
-//        $newschange = $_GET['newschange'];
+        //        $newschange = $_GET['newschange'];
         ?>
 
-         @if($userLoggedArr["type"] > 1)
-        <div>
-            <a class="btn btn-link" style="float: left; " href="{{url("/blogsboard")}}">Blogs</a>
+        @if($userLoggedArr["type"] > 1)
+            <div>
+                <a class="btn btn-link" style="float: left; " href="{{url("/blogsboard/". Auth::id())}}">Blogs</a>
 
-            <text id="titlebread" style="float: left; margin-left: 5px; "></text>
-            <br/><br/>
-        </div>
-        <div id="buttons" style="margin: 0 !important; display: inline-block;">
-            <button type="button" align="left" style="width:190px; left: 0px;" class="btn btn-primary" id="addnews" onClick="addNew()"/> Create News</button>
-            <button type="button" class="btn btn-primary" style="width:190px;" id="editnews" onClick="editNew()"/> Edit </button>
-            <button type="button" class="btn btn-primary" style="width:190px;" id="deletenews" onClick="deleteNew()"/> Delete </button>
-            <br/><br/>
-        </div>
+                <text id="titlebread" style="float: left; margin-left: 5px; "></text>
+                <br/><br/>
+            </div>
+            <div id="buttons" style="margin: 0 !important; display: inline-block;">
+                <button type="button" align="left" style="width:190px; left: 0px;" class="btn btn-primary" id="addnews" onClick="addNew()"/> Create News</button>
+                <button type="button" class="btn btn-primary" style="width:190px;" id="editnews" onClick="editNew()"/> Edit </button>
+                <button type="button" class="btn btn-primary" style="width:190px;" id="deletenews" onClick="deleteNew()"/> Delete </button>
+                <br/><br/>
+            </div>
         @else
-        <br/>
-            <table id="header" class="table-responsive" style="width: 122%; margin-left: -15%; border: 0;">
-                <th>
+            <br/>
+            <table id="header" class="table-responsive" style="width: 122%; margin-left: -15%; border: 0; margin-top: -10px;">
+                <th style="width: 380px;">
                     <div>
-                        <a id="blogslink" class="btn btn-link" style="float: left; text-decoration: none;  margin-left: -5%; font-size: 20px;" href="{{url("/blogsboard")}}">Blogs</a>
+                        <a href="{{url('/blogsfeed')}}">
+                        <img style="height: 70px; margin-left: 90px;" src="{{config('app.logo')}}">
+                        </a>
+                        <br/>
+                    </div>
+                </th>
+                <th @if (Auth::check()) style="padding-right: 30px;" @else style="padding-right: 50px;" @endif>
+                    @if (Auth::check())
+                    <div>
+                        <a id="blogslink" class="btn btn-link" style="float: left; text-decoration: none;  margin-left: -5%; font-size: 20px;" href="{{url("/blogsboard/". Auth::id())}}">My Blogs</a>
 
                         <text id="titlebread" style="float: left; margin-left: 5px; "></text>
                         <br/>
                     </div>
+                        @endif
                 </th>
-                <th>
+
+                <th @if (Auth::check()) style="padding-right: 20px;" @else style="padding-right: 40px;" @endif>
+                    @if (Auth::check())
                     <div>
-                        <a id="profilelink" class="btn btn-link" href="{{url('/profile')}}" style="float: left; text-decoration: none; font-size: 20px;">Profile</a>
+                        <a id="profilelink" class="btn btn-link" href="{{url("/profile/". Auth::id())}}" style="float: left; text-decoration: none; font-size: 20px;">My Profile</a>
 
                         <text id="titlebread2" style="float: left; margin-left: 5px; "></text>
                         <br/>
                     </div>
+                        @endif (Auth::check())
                 </th>
+
+                @if (Auth::guest())
                 <th>
                     <div>
-                        <a id="loginlink" class="btn btn-link" style="float: left; text-decoration: none;  font-size: 20px;" href="#">Log in</a>
+                        <a id="loginlink" class="btn btn-link" style="float: left; text-decoration: none;  font-size: 20px;" href="{{url('/login')}}">Log In</a>
 
                         <text id="titlebread3" style="float: left; margin-left: 5px; "></text>
                         <br/>
-
-{{--                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">--}}
-{{--                            Launch demo modal--}}
-{{--                        </button>--}}
-
-
                     </div>
                 </th>
+                @else
+                    <th>
+                        <div>
+                            <a id="loginlink" class="btn btn-link" style="float: left; text-decoration: none;  font-size: 20px;" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">Log out</a>
+
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                {{ csrf_field() }}
+                            </form>
+                            <br/>
+                        </div>
+                    </th>
+                @endif
                 <th id="searchth" style="text-align: right;">
                     <div id="searchbar" style="padding-bottom: 10px;">
-                        {!! Form::open(['url'=>'blogsboard']) !!}
+                        {!! Form::open(['url'=>'blogsfeed']) !!}
                         <input id="searchinput" type="text" class="form-control" style="display: inline; font-weight: normal;" name="namesearch" placeholder="<find blogs with keywords>">
 
                         <input class="form-control" type="image" src="http://seiis.cut.ac.cy/~seiis_lab/iconsearch.png" style="display: inline-block; width:40px; top: 11.5px;  line-height: 0.54643 !important; position: relative; padding-left: 3px; padding-right: 3px; padding-bottom: 1px; padding-top: 1px; border: none; outline: none; box-shadow: none;"/>
@@ -329,134 +351,165 @@
             <header>
                 <section class="features" style="padding-top: 0 !important;">
                     <br/>
-                    <div style="margin-top: -1%; box-shadow: 1px 1px 50px gray; margin-left: -50%; margin-right: -50%; background-image: url('https://images.wallpaperscraft.com/image/bulb_lighting_rope_130830_2048x1152.jpg');
-                     background-position: center; background-repeat: no-repeat;  background-color: #151515;">
-                    <br/>
-                        <br/>
-                        <h2 id="covertitle" style="text-align: center; color: white; letter-spacing: 2px; max-width: 100%;">Παναγιώτης Κουτρουζά Blogs</h2>
-                    <br/>
-                    <a id="newblogbtn" href="{{url('/blog/0')}}" class="btn btn-info btn-lg" style="color: white !important; visibility: hidden;">
-                        <span class="glyphicon glyphicon-plus"></span> New Blog
-                    </a>
+                    @if (Auth::check())
+                        @if ($profile->coverImg != null)
+                            <div style="margin-top: -1%; box-shadow: 1px 1px 50px gray; margin-left: -50%; margin-right: -50%; background-image: url({{asset('uploads/users/'.$profile->userid.'/profile/cover/'.$profile->coverImg)}});
+                                    background-position: center; background-repeat: no-repeat;  background-color: #151515;">
+                                @else
+                                    <div style="margin-top: -1%; box-shadow: 1px 1px 50px gray; margin-left: -50%; margin-right: -50%; background-image: url('https://images.wallpaperscraft.com/image/bulb_lighting_rope_130830_2048x1152.jpg');
+                            background-position: center; background-repeat: no-repeat;  background-color: #151515;">
+                                        @endif
+                                        @else
+                                            <div style="margin-top: -1%; box-shadow: 1px 1px 50px gray; margin-left: -50%; margin-right: -50%; background-image: url('https://images.wallpaperscraft.com/image/bulb_lighting_rope_130830_2048x1152.jpg');
+                            background-position: center; background-repeat: no-repeat;  background-color: #151515;">
+                                                @endif
 
-                    <h5 style='border-bottom: 1px solid #d1cccc; margin-top:2%;'></h5>
+                                                <br/>
+                        <br/>
+                        <h2 id="covertitle" style="text-align: center; color: white; letter-spacing: 2px; max-width: 100%;">{{$profile->name}} Blogs</h2>
+                        <br/>
+                        @if (Auth::check())
+                                                    @if (Auth::id() == $profile->userid)
+                        <a id="newblogbtn" href="{{url('/blog/0')}}" class="btn btn-info btn-lg" style="color: white !important;">
+                            <span class="glyphicon glyphicon-plus"></span> New Blog
+                        </a>
+                                                        @endif
+{{--                        @else--}}
+{{--                            <a id="newblogbtn" href="{{url('/blog/0')}}" class="btn btn-info btn-lg" style="visibility: hidden; color: white !important;">--}}
+{{--                                <span class="glyphicon glyphicon-plus"></span> New Blog--}}
+{{--                            </a>--}}
+                        @endif
+                        <h5 style='border-bottom: 1px solid #d1cccc; margin-top:2%;'></h5>
                     </div>
 
 
 
                     @if ($profile==null)
-                    <div id="profilebox" style="box-shadow: 1px 1px 20px gray; width: 25%; margin-top: -15%; margin-left: -15%; position: absolute; background-color: ghostwhite" >
-                        <div style="max-width: 100%; background-color: #151515;">
-                        <img type='image' src="https://scontent.fnic4-1.fna.fbcdn.net/v/t1.0-9/26992201_10214525435471025_6407520401202927188_n.jpg?_nc_cat=102&_nc_ohc=mT3Xi3ZrZRsAQksBbKqjhyKZspU99PWF-A2cnYqTN9RDyIRt_jgkSkxzQ&_nc_ht=scontent.fnic4-1.fna&oh=9982edcb3cd4df714b12d4d3ed43c5ae&oe=5E675F73" style="max-width: 100%;">
+                        <div id="profilebox" style="box-shadow: 1px 1px 20px gray; width: 25%; margin-top: -15%; margin-left: -15%; position: absolute; background-color: ghostwhite" >
+                            <div style="max-width: 100%; background-color: #151515;">
+                                <img type='image' src="" style="max-width: 100%;">
+                            </div>
+                            <h3 style="text-align: center; margin-top: 3%; font-weight: bold; color: #484848; box-shadow: 0 2px 2px -2px gray; margin-left: 5%; margin-right: 5%;">ABOUT</h3>
+                            <h6 style="text-align: justify; margin-left: 5%; color: #767575; margin-right: 5%; ">
+                                Here you can see the profile what is about with a small description
+                            </h6>
+                            <br/>
+                            <table class="table-responsive" style="width: 100%; margin-left: 5%; margin-right: 5%;">
+                                <tr>
+                                    <th>
+                                        <h4 style="text-align: left !important; color: #484848; font-weight: bold;">Date Joined: </h4>
+                                    </th>
+                                    <th>
+                                        <h4 style="text-align: center; !important; color: #484848;">01 Jan 2020</h4>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <h4 style="text-align: left !important; font-weight: bold; color: #484848;">Articles: </h4>
+                                    </th>
+                                    <th>
+                                        <h4 style="text-align: center; !important; color: #484848;">0</h4>
+                                    </th>
+                                </tr>
+                            </table>
+                            <br/>
                         </div>
-                        <h3 style="text-align: center; margin-top: 3%; font-weight: bold; color: #484848; box-shadow: 0 2px 2px -2px gray; margin-left: 5%; margin-right: 5%;">ABOUT</h3>
-                        <h6 style="text-align: justify; margin-left: 5%; color: #767575; margin-right: 5%; ">
-                            Here you can see the profile what is about with a small description
-                        </h6>
-                        <br/>
-                        <table class="table-responsive" style="width: 100%; margin-left: 5%; margin-right: 5%;">
-                            <tr>
-                                <th>
-                                    <h4 style="text-align: left !important; color: #484848; font-weight: bold;">Date Joined: </h4>
-                                </th>
-                                <th>
-                                    <h4 style="text-align: center; !important; color: #484848;">01 Jan 2020</h4>
-                                </th>
-                            </tr>
-                            <tr>
-                                <th>
-                                    <h4 style="text-align: left !important; font-weight: bold; color: #484848;">Articles: </h4>
-                                </th>
-                                <th>
-                                    <h4 style="text-align: center; !important; color: #484848;">0</h4>
-                                </th>
-                            </tr>
-                        </table>
-                        <br/>
-                          </div>
                     @else
-                    <div id="profilebox" style="box-shadow: 1px 1px 20px gray; width: 25%; margin-top: -15%; margin-left: -15%; position: absolute; background-color: ghostwhite" >
-                        <div style="max-width: 100%; background-color: #151515;">
-                            <img type='image' src="https://scontent.fnic4-1.fna.fbcdn.net/v/t1.0-9/26992201_10214525435471025_6407520401202927188_n.jpg?_nc_cat=102&_nc_ohc=mT3Xi3ZrZRsAQksBbKqjhyKZspU99PWF-A2cnYqTN9RDyIRt_jgkSkxzQ&_nc_ht=scontent.fnic4-1.fna&oh=9982edcb3cd4df714b12d4d3ed43c5ae&oe=5E675F73" style="max-width: 100%;">
+                        <div id="profilebox" style="box-shadow: 1px 1px 20px gray; width: 25%; margin-top: -15%; margin-left: -15%; position: absolute; background-color: ghostwhite" >
+                            <div style="max-width: 100%; background-color: #151515;">
+                                @if ($profile->profilePic != null)
+                                    <img id="profileimage" style="max-width: 100%;" type='image' src="{{asset('uploads/users/'.$profile->userid.'/profile/photo/'.$profile->profilePic)}}">
+                                @else
+                                    <img id="profileimage" style="max-width: 100%;" type='image' src="">
+                                @endif
+
+                                @if (Auth::check())
+                                    @if (Auth::id() == $profile->userid)
+                                        <a href="{{url("/profile/". Auth::id())}}">
+                                            <button class="btn btn-primary" type="button" style="width: 100%; height: 50px; font-size: 15px;">EDIT PROFILE</button>
+                                        </a>
+                                    @endif
+                                @endif
+                            </div>
+                            <h3 style="text-align: center; margin-top: 3%; font-weight: bold; color: #484848; box-shadow: 0 2px 2px -2px gray; margin-left: 5%; margin-right: 5%;">ABOUT</h3>
+                            <h6 style="text-align: justify; margin-left: 5%; color: #767575; margin-right: 5%; ">
+                                {{$profile->about}}
+                            </h6>
+                            <br/>
+                            <table class="table-responsive" style="width: 100%; margin-left: 5%; margin-right: 5%;">
+                                <tr>
+                                    <th>
+                                        <h4 style="text-align: left !important; color: #484848; font-weight: bold;">Date Joined: </h4>
+                                    </th>
+                                    <th>
+                                        <h4 style="text-align: center; !important; color: #484848;">{{$profile->date_created}}</h4>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <h4 style="text-align: left !important; font-weight: bold; color: #484848;">Blogs: </h4>
+                                    </th>
+                                    <th>
+                                        <h4 style="text-align: center; !important; color: #484848;">{{$profile->counted_blogs}}</h4>
+                                    </th>
+                                </tr>
+                            </table>
+                            <br/>
                         </div>
-                        <h3 style="text-align: center; margin-top: 3%; font-weight: bold; color: #484848; box-shadow: 0 2px 2px -2px gray; margin-left: 5%; margin-right: 5%;">ABOUT</h3>
-                        <h6 style="text-align: justify; margin-left: 5%; color: #767575; margin-right: 5%; ">
-                            {{$profile->about}}
-                        </h6>
-                        <br/>
-                        <table class="table-responsive" style="width: 100%; margin-left: 5%; margin-right: 5%;">
-                            <tr>
-                                <th>
-                                    <h4 style="text-align: left !important; color: #484848; font-weight: bold;">Date Joined: </h4>
-                                </th>
-                                <th>
-                                    <h4 style="text-align: center; !important; color: #484848;">{{$profile->date_created}}</h4>
-                                </th>
-                            </tr>
-                            <tr>
-                                <th>
-                                    <h4 style="text-align: left !important; font-weight: bold; color: #484848;">Blogs: </h4>
-                                </th>
-                                <th>
-                                    <h4 style="text-align: center; !important; color: #484848;">{{$profile->counted_blogs}}</h4>
-                                </th>
-                            </tr>
-                        </table>
-                        <br/>
-                    </div>
                     @endif
 
 
                     <div id="blogsfeed" style="max-height: 2000px;">
                         <br/>
                         <div class="wrapper" >
+
                             @foreach($blogs as $blog)
-                            <div class="feature" style="width: 100%; align-content: center;">
-                                <div class="ficon" style="position: relative; text-align: center; color: white; margin-right: 0;">
+                                <div class="feature" style="width: 100%; align-content: center;">
+                                    <div class="ficon" style="position: relative; text-align: center; color: white; margin-right: 0;">
 
+
+                                    </div>
+
+                                    <a href="{{ url("blog/".$blog->id) }}" style=" text-decoration: none;">
+                                        <div href="{{ url("blog/".$blog->id) }}" class="details_exp" style="text-align: left; cursor: pointer;" onClick="location.href = '{{$blog}}'">
+                                            <h3 class="formatted_title" style=" text-decoration: none;" value="{{$blog->formatted_blogTitle}}"></h3>
+                                            <table class="table-responsive" style="border: none;">
+                                                <th style="width: 50%; padding-right: 30px;">
+                                                    @if ($blog->imgUpload != null)
+                                                        <img class="blogImg" src="{{asset('uploads/users/'.$profile->userid.'/blogs/'.$blog->imgUpload)}}" alt="" style="padding-right: 50%; max-height: 300px;"/>
+                                                    @else
+                                                        <img class="blogImg" src="https://www.finelawn.co.nz/wp-content/uploads/2014/12/600x250.gif" alt="" style="padding-right: 50%; max-height: 300px;"/>
+                                                    @endif
+                                                </th>
+                                                <th>
+
+                                                    <h4 class="formatted_description" value="{{$blog->formatted_description}}" style="text-decoration: none; text-align: justify;">
+
+                                                    </h4>
+
+
+                                                    more details<span>→</span>
+                                                    <br/><br/>
+                                                    <h5><span class="glyphicon glyphicon-time"></span> {{$blog->formatted_created_at}}
+                                                        @if ($blog->formatted_updated_at !== $blog->formatted_created_at)
+                                                            (updated: {{$blog->formatted_updated_at}})
+                                                        @endif<br/> <a href="{{url("/blogsboard/". $blog->userid)}}"> <span class="glyphicon glyphicon-user"></span> {{$blog->name}} </a> </h5>
+                                                </th>
+                                            </table>
+
+
+
+                                        </div>
+                                    </a>
 
                                 </div>
-
-                                <a href="{{ url("blog/".$blog->id) }}" style=" text-decoration: none;">
-                                <div href="{{ url("blog/".$blog->id) }}" class="details_exp" style="text-align: left; cursor: pointer;" onClick="location.href = '{{$blog}}'">
-                                    <h3 class="formatted_title" style=" text-decoration: none;" value="{{$blog->formatted_blogTitle}}"></h3>
-                                    <table class="table-responsive" style="border: none;">
-                                        <th style="width: 50%; padding-right: 30px;">
-                                            @if ($blog->imgUpload != null)
-                                            <img class="blogImg" src="{{asset('public/uploads/'.$blog->imgUpload)}}" alt="" style="padding-right: 50%; max-height: 300px;"/>
-                                                @else
-                                                <img class="blogImg" src="https://www.finelawn.co.nz/wp-content/uploads/2014/12/600x250.gif" alt="" style="padding-right: 50%; max-height: 300px;"/>
-                                            @endif
-                                        </th>
-                                        <th>
-
-                                            <h4 class="formatted_description" value="{{$blog->formatted_description}}" style="text-decoration: none; text-align: justify;">
-
-                                            </h4>
-
-
-                                            more details<span>→</span>
-                                            <br/><br/>
-                                            <h5><span class="glyphicon glyphicon-time"></span> {{$blog->formatted_created_at}}
-                                                @if ($blog->formatted_updated_at !== $blog->formatted_created_at)
-                                                    (updated: {{$blog->formatted_updated_at}})
-                                                @endif<br/> <span class="glyphicon glyphicon-user"></span> Panagiotis Koutrouzas</h5>
-                                        </th>
-                                    </table>
-
-
-
-                                </div>
-                                </a>
-
-                            </div>
-                            <br/>
+                                <br/>
                             @endforeach
 
                             @if ($blogs instanceof \Illuminate\Pagination\LengthAwarePaginator)
-                            {{$blogs->links("pagination::default")}}
-                                @endif
-                                <script>highlightKeywords();</script>
+                                {{$blogs->links("pagination::default")}}
+                            @endif
+                            <script>highlightKeywords();</script>
                         </div>
                     </div>
                 </section>

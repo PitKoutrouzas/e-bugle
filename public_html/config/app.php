@@ -12,7 +12,8 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'E-Bugle'),
+    'logo' => 'https://scontent.fnic4-1.fna.fbcdn.net/v/t1.15752-9/92337726_796519450757369_3775839791547940864_n.png?_nc_cat=101&_nc_sid=b96e70&_nc_ohc=PJBLU2d-b24AX9u5Ukb&_nc_ht=scontent.fnic4-1.fna&oh=6d35e1356769bba0a1dfa5d3c2c2396d&oe=5EB13B3B',
 
     /*
     |--------------------------------------------------------------------------
