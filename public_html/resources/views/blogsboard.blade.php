@@ -179,13 +179,13 @@
     <!-- Latest compiled and minified CSS -->
 
     @if ($agent->isDesktop())
-        <link rel="stylesheet" href="{{asset('css/desktop/blogsboard_desktop.css')}}">
+        <link rel="stylesheet" href="{{asset('public/css/desktop/blogsboard_desktop.css')}}">
     @elseif ($agent->isTablet())
-        <link rel="stylesheet" href="{{asset('css/tablet/blogsboard_tablet.css')}}">
+        <link rel="stylesheet" href="{{asset('public/css/tablet/blogsboard_tablet.css')}}">
     @elseif ($agent->isMobile())
-        <link rel="stylesheet" href="{{asset('css/mobile/blogsboard_mobile.css')}}">
+        <link rel="stylesheet" href="{{asset('public/css/mobile/blogsboard_mobile.css')}}">
     @else
-        <link rel="stylesheet" href="{{asset('css/desktop/blogsboard_desktop.css')}}">
+        <link rel="stylesheet" href="{{asset('public/css/desktop/blogsboard_desktop.css')}}">
     @endif
 
     <link rel="stylesheet" type="text/css" href="main_responsive.css">
