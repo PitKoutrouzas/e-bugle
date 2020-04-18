@@ -395,7 +395,7 @@
                 <section class="features" style="padding-top: 0 !important;">
                     <br/>
                         @if ($profile->coverImg != null)
-                                    <div style="margin-top: -1%; box-shadow: 1px 1px 50px gray; margin-left: -50%; margin-right: -50%; background-image: url({{asset('uploads/users/'.$profile->userid.'/profile/cover/'.$profile->coverImg)}});
+                                    <div style="margin-top: -1%; box-shadow: 1px 1px 50px gray; margin-left: -50%; margin-right: -50%; background-image: url({{asset('public/uploads/users/'.$profile->userid.'/profile/cover/'.$profile->coverImg)}});
                             background-position: center; background-repeat: no-repeat;  background-color: #151515;">
                                 @else
                                     <div style="margin-top: -1%; box-shadow: 1px 1px 50px gray; margin-left: -50%; margin-right: -50%; background-image: url('https://images.wallpaperscraft.com/image/bulb_lighting_rope_130830_2048x1152.jpg');
@@ -447,7 +447,7 @@
 
                                                                 <div class="profimg_wrap">
                                                                 @if ($profile->profilePic != null)
-                                                                    <img id="profileimage" style="max-width: 300px; border-radius: 50%;" type='image' src="{{asset('uploads/users/'.$profile->userid.'/profile/photo/'.$profile->profilePic)}}">
+                                                                    <img id="profileimage" style="max-width: 300px; border-radius: 50%;" type='image' src="{{asset('public/uploads/users/'.$profile->userid.'/profile/photo/'.$profile->profilePic)}}">
                                                                 @else
                                                                     <img id="profileimage" style="max-width: 300px; border-radius: 50%;" type='image' src="">
                                                                 @endif
