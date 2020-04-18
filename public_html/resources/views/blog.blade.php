@@ -454,7 +454,7 @@
                 <section class="features" style="padding-top: 0 !important;">
                     <br/>
                         @if ($profile->coverImg != null)
-                            <div style="margin-top: -1%; box-shadow: 1px 1px 50px gray; margin-left: -50%; margin-right: -50%; background-image: url({{asset('uploads/users/'.$profile->userid.'/profile/cover/'.$profile->coverImg)}});
+                            <div style="margin-top: -1%; box-shadow: 1px 1px 50px gray; margin-left: -50%; margin-right: -50%; background-image: url({{asset('public/uploads/users/'.$profile->userid.'/profile/cover/'.$profile->coverImg)}});
                                     background-position: center; background-repeat: no-repeat;  background-color: #151515;">
                                 @else
                                     <div style="margin-top: -1%; box-shadow: 1px 1px 50px gray; margin-left: -50%; margin-right: -50%; background-image: url('https://images.wallpaperscraft.com/image/bulb_lighting_rope_130830_2048x1152.jpg');
@@ -540,7 +540,7 @@
                                     <p style="text-align: left; margin-left: 10%; font-size: small;"><span class="glyphicon glyphicon-user"></span><a href="{{url("/blogsboard/". $profile->userid)}}"> {{$blog->name}} </a><span class="glyphicon glyphicon-time" style="margin-left: 10px;"></span> {{date('j M Y H:i', strtotime($blog->updated_at))}}</p>
                                     <br/>
                                     @if ($blog->imgUpload !== null)
-                                        <img class="newsimage" src="{{asset('uploads/users/'.$profile->userid.'/blogs/'.$blog->imgUpload)}}" name="descr_img" id="descr_img" style="max-height:80%; max-width: 80%;"/></img>
+                                        <img class="newsimage" src="{{asset('public/uploads/users/'.$profile->userid.'/blogs/'.$blog->imgUpload)}}" name="descr_img" id="descr_img" style="max-height:80%; max-width: 80%;"/></img>
                                         <br/><br/><br/>
                                     @endif
                                     <div id="descr" value="{{$blog->description}}" style="text-align:justify; left: 200px; margin-left: 10%; margin-right: 10%; font-size: 17px; white-space: pre-wrap;">
