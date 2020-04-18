@@ -353,7 +353,7 @@
                     <br/>
                     @if (Auth::check())
                         @if ($profile->coverImg != null)
-                            <div style="margin-top: -1%; box-shadow: 1px 1px 50px gray; margin-left: -50%; margin-right: -50%; background-image: url({{asset('uploads/users/'.$profile->userid.'/profile/cover/'.$profile->coverImg)}});
+                            <div style="margin-top: -1%; box-shadow: 1px 1px 50px gray; margin-left: -50%; margin-right: -50%; background-image: url({{asset('public/uploads/users/'.$profile->userid.'/profile/cover/'.$profile->coverImg)}});
                                     background-position: center; background-repeat: no-repeat;  background-color: #151515;">
                                 @else
                                     <div style="margin-top: -1%; box-shadow: 1px 1px 50px gray; margin-left: -50%; margin-right: -50%; background-image: url('https://images.wallpaperscraft.com/image/bulb_lighting_rope_130830_2048x1152.jpg');
@@ -418,7 +418,7 @@
                         <div id="profilebox" style="box-shadow: 1px 1px 20px gray; width: 25%; margin-top: -15%; margin-left: -15%; position: absolute; background-color: ghostwhite" >
                             <div style="max-width: 100%; background-color: #151515;">
                                 @if ($profile->profilePic != null)
-                                    <img id="profileimage" style="max-width: 100%;" type='image' src="{{asset('uploads/users/'.$profile->userid.'/profile/photo/'.$profile->profilePic)}}">
+                                    <img id="profileimage" style="max-width: 100%;" type='image' src="{{asset('public/uploads/users/'.$profile->userid.'/profile/photo/'.$profile->profilePic)}}">
                                 @else
                                     <img id="profileimage" style="max-width: 100%;" type='image' src="">
                                 @endif
@@ -476,7 +476,7 @@
                                             <table class="table-responsive" style="border: none;">
                                                 <th style="width: 50%; padding-right: 30px;">
                                                     @if ($blog->imgUpload != null)
-                                                        <img class="blogImg" src="{{asset('uploads/users/'.$profile->userid.'/blogs/'.$blog->imgUpload)}}" alt="" style="padding-right: 50%; max-height: 300px;"/>
+                                                        <img class="blogImg" src="{{asset('public/uploads/users/'.$profile->userid.'/blogs/'.$blog->imgUpload)}}" alt="" style="padding-right: 50%; max-height: 300px;"/>
                                                     @else
                                                         <img class="blogImg" src="https://www.finelawn.co.nz/wp-content/uploads/2014/12/600x250.gif" alt="" style="padding-right: 50%; max-height: 300px;"/>
                                                     @endif
