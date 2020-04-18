@@ -223,13 +223,13 @@
     <!-- Latest compiled and minified CSS -->
 
     @if ($agent->isDesktop())
-        <link rel="stylesheet" href="{{asset('css/desktop/blog_desktop.css')}}">
+        <link rel="stylesheet" href="{{asset('public/css/desktop/blog_desktop.css')}}">
     @elseif ($agent->isTablet())
-        <link rel="stylesheet" href="{{asset('css/tablet/blog_tablet.css')}}">
+        <link rel="stylesheet" href="{{asset('public/css/tablet/blog_tablet.css')}}">
     @elseif ($agent->isMobile())
-        <link rel="stylesheet" href="{{asset('css/mobile/blog_mobile.css')}}">
+        <link rel="stylesheet" href="{{asset('public/css/mobile/blog_mobile.css')}}">
     @else
-        <link rel="stylesheet" href="{{asset('css/desktop/blog_desktop.css')}}">
+        <link rel="stylesheet" href="{{asset('public/css/desktop/blog_desktop.css')}}">
     @endif
 
     @if(isset($blog))
