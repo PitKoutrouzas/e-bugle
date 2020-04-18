@@ -55,7 +55,7 @@ class ProfileController extends Controller
         User::where('id', Auth::id())
             ->update(array('name' => $name));
 
-        $profile = Profile::getProfileDetails();
+        $profile = Profile::getProfileDetails(Auth::id());
         $agent = new Agent();
         return view ("/profile", compact("profile", "agent"));
     }
