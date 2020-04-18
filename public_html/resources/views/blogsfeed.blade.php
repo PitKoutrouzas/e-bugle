@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <link rel="stylesheet" type="text/css" href="../../public/css/desktop/blogsboard_desktop.css">
+    <link rel="stylesheet" type="text/css" href="../../public/css/desktop/blogsfeed_desktop.css">
     <style type="text/css">
 
         .hrclass{
