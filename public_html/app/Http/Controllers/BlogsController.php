@@ -112,7 +112,7 @@ class BlogsController extends Controller
     public function deleteBlog($id){
         $blogImg = Blog::where('id', $id)->first()->imgUpload;
         if ($blogImg !== null){
-            unlink(public_path('/uploads/'. Blog::where('id', $id)->first()->imgUpload));
+            unlink(public_path('/uploads/users/'.Auth::id().'/blogs/'. Blog::where('id', $id)->first()->imgUpload));
         }
 
         Blog::where('id', $id)->delete();
