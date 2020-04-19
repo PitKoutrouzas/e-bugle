@@ -265,7 +265,6 @@ class BlogsController extends Controller
         if ($blogImg !== null){
             $previousImg = Blog::where('id', $id)->first()->imgUpload;
             if ($previousImg !== null){
-                dd("hi");
                 unlink(public_path('/uploads/users/'.Auth::id().'/blogs/'. $previousImg));
             }
             $blogImgFileName = date('d_m_Y').'_'.$blogImg->getClientOriginalName();
