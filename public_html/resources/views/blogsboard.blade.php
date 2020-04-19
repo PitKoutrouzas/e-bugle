@@ -420,7 +420,7 @@
                                 @if ($profile->profilePic != null)
                                     <img id="profileimage" style="max-width: 100%;" type='image' src="{{asset('public/uploads/users/'.$profile->userid.'/profile/photo/'.$profile->profilePic)}}">
                                 @else
-                                    <img id="profileimage" style="max-width: 100%;" type='image' src="">
+                                    <img id="profileimage" style="max-width: 100%;" type='image' src="https://vimcare.com/assets/empty_user-e28be29d09f6ea715f3916ebebb525103ea068eea8842da42b414206c2523d01.png">
                                 @endif
 
                                 @if (Auth::check())
