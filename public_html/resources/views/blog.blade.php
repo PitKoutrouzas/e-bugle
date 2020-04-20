@@ -40,10 +40,6 @@
             padding:0;
         }
 
-        iframe{
-            display: none;
-        }
-
         html {
             position: relative;
             min-height: 100%;
