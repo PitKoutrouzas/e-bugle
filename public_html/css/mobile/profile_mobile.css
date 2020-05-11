@@ -1,11 +1,45 @@
 .table-responsive th {    display: table;  width:50%;    }
 .table-responsive td {    display: table-row; }
 .blogImg {max-width:450px; height:200px;}
-#searchbar { text-align: center;}
-#searchth {    display: inline;}
+#searchbar { margin-left: 0%; text-align: center;}
+#searchinput { display: inline; margin-left: 0%;}
 #searchinput { width: 75%; !important;}
 #profilelink {margin-left: -5%; !important;}
 #loginlink {margin-left: -5%; !important;}
 
-#profilecontent {margin-left: 22% !important; width: 150% !important;}
+#editcoverimg_btn {width: 70%; !important;}
+
+/*#profilecontent {margin-left: 22% !important; width: 150% !important;}*/
 .profileimageviewer {width: 100% !important;}
+
+#aboutbox {width: 100% !important;}
+
+#profimg_description {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(240, 196, 107, 0.72);
+    color: #000;
+    visibility: hidden;
+    opacity: 0;
+
+    /* transition effect. not necessary */
+    transition: opacity .2s, visibility .2s;
+}
+
+.profimg_wrap {
+    max-width: 400px;
+    display: inline-block;
+    border-radius: 50%;
+    position: relative;
+}
+
+.profimg_wrap:hover #profimg_description {
+    visibility: visible;
+    opacity: 1;
+}
+
+#navbar_desktop {display: none;}
+#navbar_mobile {display: inline;}

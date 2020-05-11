@@ -1,45 +1,36 @@
-@media all and (min-width: 1367px) {
+@media all and (min-width: 1550px) {
     #searchinput { width: 80%; !important;}
     #profilelink {margin-left: -65%; !important;}
-    #loginlink {margin-left: -105% !important; padding-right: 100px;}
+    #loginlink {margin-left: -105%; !important; padding-right: 100px;}
 
-    #covertitle {margin-left: 20% !important;}
-    #newblogbtn {margin-left: 20% !important;}
-    #blogsfeed {margin-left: 15%; !important; margin-right: -10%;}
+    #newblogbtn {margin-left: 11.5% !important;}
     .blogImg {width: 600px !important; padding-right: 0% !important}
     #navbar_mobile {display: none;}
+    /*#footer_bottom {bottom: -35vh;}*/
 }
 
-@media all and (min-width: 1325px) and (max-width:1366px) {
-    .blogImg {width: 450px !important; padding-right: 0% !important}
-    h4 {font-size: 17px !important;}
-    h5 {font-size: 13px !important;}
-    #remov_break {display: none;}
-
-
-    #searchbar { text-align: right;}
-    #searchinput { display: inline; width: 80%; !important;}
+@media all and (min-width: 1300px) and (max-width:1549px) {
+    #searchinput { width: 80%; !important;}
     #profilelink {margin-left: -65%; !important;}
     #loginlink {margin-left: -105%; !important;}
-    #covertitle {margin-left: 20% !important;}
-    #newblogbtn {margin-left: 20% !important;}
 
-    #blogsfeed {margin-left: 15% !important; margin-right: -10% !important;}
+    #newblogbtn {margin-left: 11.5% !important;}
+    .blogImg {width: 500px !important; padding-right: 0% !important}
     #navbar_mobile {display: none;}
+    /*#footer_bottom {bottom: -45vh;}*/
 }
 
-@media all and (min-width: 1025px) and (max-width:1324px) {
+@media all and (min-width: 1025px) and (max-width:1299px) {
     .table-responsive:not(#header) th {    display: table;  width:100%;    }
     .table-responsive:not(#header) td {    display: table-row; }
     #searchbar { text-align: right;}
     #searchinput { display: inline; width: 80%; !important;}
     #profilelink {margin-left: -65%; !important;}
     #loginlink {margin-left: -105%; !important;}
-    #covertitle {margin-left: 20% !important;}
-    #newblogbtn {margin-left: 20% !important;}
 
-    #blogsfeed {margin-left: 21.5%; !important;}
+    #profilebox {display: none;}
     #navbar_mobile {display: none;}
+    /*#footer_bottom {bottom: -95vh;}*/
 }
 
 @media all and (min-width: 768px) and (max-width:1024px) {
@@ -54,9 +45,9 @@
     #profilebox {display: none;}
     #blogsfeed {margin-left: -5%; !important;}
     .blogImg {max-width: 250%; !important; max-height: 100% !important;}
-
     #navbar_desktop {display: none;}
     #navbar_mobile {display: inline;}
+    /*#footer_bottom {bottom: -105vh;}*/
 }
 
 @media all and (max-width:767px) {
@@ -76,13 +67,12 @@
     #blog_details {width: 50%;}
 
     .details_exp { text-align: center; !important; width: 400% !important}
+    #navbar_desktop {display: none;}
+    #navbar_mobile {display: inline;}
 
     /*#header { display: initial !important;}*/
     /*.formatted_title { text-align: center;}*/
     /*.table-responsive {margin-left: auto; margin-right: auto;}*/
     #covertitle {margin-left: 20%; margin-right: 20%;}
-
-    #navbar_desktop {display: none;}
-    #navbar_mobile {display: inline;}
-    /*#footer_bottom {bottom: -90vh;}*/
+    /*#footer_bottom {bottom: -155vh;}*/
 }

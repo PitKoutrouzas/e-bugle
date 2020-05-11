@@ -1,33 +1,174 @@
+@media all and (min-width: 1367px) {
+    #searchinput { width: 80%; !important;}
+    #profilelink {margin-left: -65%; !important;}
+    #loginlink {margin-left: -105%; !important; padding-right: 100px;}
 
-@media all and (min-width: 1419px) {
-    #searchinput { width: 40%; !important;}
-    #profilelink {margin-left: -50%; !important;}
-    #loginlink {margin-left: -105%; !important;}
+    #editcoverimg_btn {width: 30%; !important;}
 
     .profileimageviewer {width: 30% !important;}
+
+    #profimg_description {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(240, 196, 107, 0.72);
+        color: #000;
+        visibility: hidden;
+        opacity: 0;
+
+        /* transition effect. not necessary */
+        transition: opacity .2s, visibility .2s;
+    }
+
+    .profimg_wrap {
+        max-width: 400px;
+        display: inline-block;
+        border-radius: 50%;
+        position: relative;
+    }
+
+    .profimg_wrap:hover #profimg_description {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    #navbar_mobile {display: none;}
+    #aboutbox {width: 60% !important;}
 }
 
-@media all and (min-width: 768px) and (max-width:1418px) {
+@media all and (min-width: 1025px) and (max-width:1366px) {
+    #searchbar { margin-left: 0%; text-align: right;}
+    #searchinput { display: inline; margin-left: 0%;}
+    #searchinput { width: 80%; !important;}
+    #profilelink {margin-left: -65%; !important;}
+    #loginlink {margin-left: -105%; !important;}
+
+    #editcoverimg_btn {width: 40%; !important;}
+
+    .profileimageviewer {width: 100% !important;}
+
+    #profimg_description {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(240, 196, 107, 0.72);
+        color: #000;
+        visibility: hidden;
+        opacity: 0;
+
+        /* transition effect. not necessary */
+        transition: opacity .2s, visibility .2s;
+    }
+
+    .profimg_wrap {
+        max-width: 400px;
+        display: inline-block;
+        border-radius: 50%;
+        position: relative;
+    }
+
+    .profimg_wrap:hover #profimg_description {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    #aboutbox {width: 60% !important;}
+    #navbar_mobile {display: none;}
+}
+
+@media all and (min-width: 768px) and (max-width:1024px) {
     .table-responsive:not(#header) th {    display: table;  width:100%;    }
     .table-responsive:not(#header) td {    display: table-row; }
-    #searchbar { text-align: right;}
-    #searchinput { display: inline; width: 40%; !important;}
+    #searchbar { margin-left: 0%; text-align: center;}
+    #searchinput { display: inline; margin-left: 0%;}
+    #searchinput { width: 75%; !important;}
     #profilelink {margin-left: 25%; !important;}
     #loginlink {margin-left: 55%; !important;}
 
+    #editcoverimg_btn {width: 40%; !important;}
+
     .profileimageviewer {width: 100% !important;}
+
+    #profimg_description {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(240, 196, 107, 0.72);
+        color: #000;
+        visibility: hidden;
+        opacity: 0;
+
+        /* transition effect. not necessary */
+        transition: opacity .2s, visibility .2s;
+    }
+
+    .profimg_wrap {
+        max-width: 400px;
+        display: inline-block;
+        border-radius: 50%;
+        position: relative;
+    }
+
+    .profimg_wrap:hover #profimg_description {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    #aboutbox {width: 80% !important;}
+    #navbar_desktop {display: none;}
+    #navbar_mobile {display: inline;}
 }
 
 @media all and (max-width:767px) {
     .table-responsive th {    display: table;  width:50%;    }
     .table-responsive td {    display: table-row; }
     .blogImg {max-width:450px; height:200px;}
-    #searchbar { text-align: center;}
-    #searchth {    display: inline;}
+    #searchbar { margin-left: 0%; text-align: center;}
+    #searchinput { display: inline; margin-left: 0%;}
     #searchinput { width: 75%; !important;}
     #profilelink {margin-left: -5%; !important;}
     #loginlink {margin-left: -5%; !important;}
 
-    #profilecontent {margin-left: 22% !important; width: 150% !important;}
+    #editcoverimg_btn {width: 70%; !important;}
+
+    /*#profilecontent {margin-left: 22% !important; width: 150% !important;}*/
     .profileimageviewer {width: 100% !important;}
+
+    #aboutbox {width: 100% !important;}
+
+    #profimg_description {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(240, 196, 107, 0.72);
+        color: #000;
+        visibility: hidden;
+        opacity: 0;
+
+        /* transition effect. not necessary */
+        transition: opacity .2s, visibility .2s;
+    }
+
+    .profimg_wrap {
+        max-width: 400px;
+        display: inline-block;
+        border-radius: 50%;
+        position: relative;
+    }
+
+    .profimg_wrap:hover #profimg_description {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    #navbar_desktop {display: none;}
+    #navbar_mobile {display: inline;}
 }
