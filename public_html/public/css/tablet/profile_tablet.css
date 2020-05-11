@@ -1,11 +1,13 @@
 .table-responsive:not(#header) th {    display: table;  width:100%;    }
 .table-responsive:not(#header) td {    display: table-row; }
-#searchbar { text-align: right;}
-#searchinput { display: inline; width: 40%; !important;}
+#searchbar { margin-left: 0%; text-align: center;}
+#searchinput { display: inline; margin-left: 0%;}
+#searchinput { width: 75%; !important;}
 #profilelink {margin-left: 25%; !important;}
 #loginlink {margin-left: 55%; !important;}
+#aboutbox {width: 80% !important;}
 
-#editcoverimg_btn {width: 15%; !important;}
+#editcoverimg_btn {width: 40%; !important;}
 
 .profileimageviewer {width: 100% !important;}
 
@@ -15,8 +17,8 @@
     bottom: 0;
     left: 0;
     right: 0;
-    background: rgba(29, 106, 154, 0.72);
-    color: #fff;
+    background: rgba(240, 196, 107, 0.72);
+    color: #000;
     visibility: hidden;
     opacity: 0;
 
@@ -35,3 +37,6 @@
     visibility: visible;
     opacity: 1;
 }
+
+#navbar_desktop {display: none;}
+#navbar_mobile {display: inline;}

@@ -171,21 +171,46 @@
             width: 100%;
         }
 
+        #editcoverimg_btn:hover {
+            color: #f0cb52 !important;
+            border-color: #e2ba47 !important;
+        }
+
+        #save_btn:hover {
+            color: #e2ba47 !important;
+            border-color: #e2ba47 !important;
+        }
+
+        a:hover {
+            color: #ebc349 !important;
+        }
+
+        textarea:focus {
+            border-color: #ebc349 !important;
+        }
+
+        input:focus {
+            border-color: #ebc348 !important;
+        }
+
+        #profilelink {
+            color: #ebc349 !important;
+        }
+
     </style>
     <meta charset="utf-8">
     <!-- Latest compiled JavaScript -->
 
-    <title>Blogs</title>
     <!-- Latest compiled and minified CSS -->
 
     @if ($agent->isDesktop())
-        <link rel="stylesheet" href="{{asset('public/css/desktop/profile_desktop.css')}}">
+        <link rel="stylesheet" href="{{asset('css/desktop/profile_desktop.css')}}">
     @elseif ($agent->isTablet())
-        <link rel="stylesheet" href="{{asset('public/css/tablet/profile_tablet.css')}}">
+        <link rel="stylesheet" href="{{asset('css/tablet/profile_tablet.css')}}">
     @elseif ($agent->isMobile())
-        <link rel="stylesheet" href="{{asset('public/css/mobile/profile_mobile.css')}}">
+        <link rel="stylesheet" href="{{asset('css/mobile/profile_mobile.css')}}">
     @else
-        <link rel="stylesheet" href="{{asset('public/css/desktop/profile_desktop.css')}}">
+        <link rel="stylesheet" href="{{asset('css/desktop/profile_desktop.css')}}">
     @endif
 
     <link rel="stylesheet" type="text/css" href="main_responsive.css">
@@ -198,7 +223,7 @@
 
     <!-- jQuery library -->
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.7/jquery.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
 
     <!-- Latest compiled JavaScript -->
@@ -230,6 +255,11 @@
 
 
 <body>
+@if ($profile!=null)
+    <title>{{$profile->name}}</title>
+@else
+    <title>E-Bugle</title>
+@endif
 <!--HEADER START-->
 <!-- Section to host top layout of page-->
 <?php
@@ -320,68 +350,8 @@
         //        $newschange = $_GET['newschange'];
         ?>
 
-            <br/>
-        <table id="header" class="table-responsive" style="width: 122%; margin-left: -15%; border: 0; margin-top: -10px;">
-            <th style="width: 380px;">
-                <div>
-                    <a href="{{url('/blogsfeed')}}">
-                        <img style="height: 70px; margin-left: 90px;" src="{{config('app.logo')}}">
-                    </a>
-                    <br/>
-                </div>
-            </th>
-            <th @if (Auth::check()) style="padding-right: 30px;" @else style="padding-right: 50px;" @endif>
-                @if (Auth::check())
-                <div>
-                    <a id="blogslink" class="btn btn-link" style="float: left; text-decoration: none;  margin-left: -5%; font-size: 20px;" href="{{url("/blogsboard/". Auth::id())}}">My Blogs</a>
-
-                    <text id="titlebread" style="float: left; margin-left: 5px; "></text>
-                    <br/>
-                </div>
-                    @endif
-            </th>
-                <th @if (Auth::check()) style="padding-right: 20px;" @else style="padding-right: 40px;" @endif>
-                    @if (Auth::check())
-                    <div>
-                        <a id="profilelink" class="btn btn-link" href="{{url("/profile/". Auth::id())}}" style="float: left; text-decoration: none; font-size: 20px;">My Profile</a>
-
-                        <text id="titlebread2" style="float: left; margin-left: 5px; "></text>
-                        <br/>
-                    </div>
-                        @endif
-                </th>
-            @if (Auth::guest())
-                <th>
-                    <div>
-                        <a id="loginlink" class="btn btn-link" style="float: left; text-decoration: none;  font-size: 20px;" href="{{url('/login')}}">Log In</a>
-
-                        <text id="titlebread3" style="float: left; margin-left: 5px; "></text>
-                        <br/>
-                    </div>
-                </th>
-            @else
-                <th>
-                    <div>
-                        <a id="loginlink" class="btn btn-link" style="float: left; text-decoration: none;  font-size: 20px;" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">Log out</a>
-
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            {{ csrf_field() }}
-                        </form>
-                        <br/>
-                    </div>
-                </th>
-            @endif
-            <th id="searchth" style="text-align: right;">
-                <div id="searchbar" style="padding-bottom: 10px;">
-                    {!! Form::open(['url'=>'blogsboard']) !!}
-                    <input id="searchinput" type="text" class="form-control" style="display: inline; font-weight: normal;" name="namesearch" placeholder="<find blogs with keywords>">
-
-                    <input class="form-control" type="image" src="http://seiis.cut.ac.cy/~seiis_lab/iconsearch.png" style="display: inline-block; width:40px; top: 11.5px;  line-height: 0.54643 !important; position: relative; padding-left: 3px; padding-right: 3px; padding-bottom: 1px; padding-top: 1px; border: none; outline: none; box-shadow: none;"/>
-                    {!! Form::close() !!}
-                </div>
-            </th>
-        </table>
+        @include('navbar')
+        @include('navbar_mobile')
 
         <div class="table-responsive" style="width:100%; margin: auto;">
 
@@ -393,12 +363,12 @@
         <div id="newsfeed">
             <header>
                 <section class="features" style="padding-top: 0 !important;">
-                    <br/>
+                    <br/><br/>
                         @if ($profile->coverImg != null)
-                                    <div style="margin-top: -1%; box-shadow: 1px 1px 50px gray; margin-left: -50%; margin-right: -50%; background-image: url({{asset('public/uploads/users/'.$profile->userid.'/profile/cover/'.$profile->coverImg)}});
+                                    <div style="margin-top: -1%; box-shadow: 1px 1px 50px gray; margin-left: -21.5%; margin-right: -21.5%; background-image: url({{asset('uploads/users/'.$profile->userid.'/profile/cover/'.$profile->coverImg)}});
                             background-position: center; background-repeat: no-repeat;  background-color: #151515;">
                                 @else
-                                    <div style="margin-top: -1%; box-shadow: 1px 1px 50px gray; margin-left: -50%; margin-right: -50%; background-image: url('https://images.wallpaperscraft.com/image/bulb_lighting_rope_130830_2048x1152.jpg');
+                                    <div style="margin-top: -1%; box-shadow: 1px 1px 50px gray; margin-left: -21.5%; margin-right: -21.5%;
                             background-position: center; background-repeat: no-repeat;  background-color: #151515;">
                         @endif
 
@@ -406,16 +376,20 @@
                         <br/>
                         <h2 id="covertitle" style="text-align: center; color: white; letter-spacing: 10px;">PROFILE</h2>
 
-                        @if (Auth::check())
-                        @if (Auth::id() == $profile->userid)
-                            {!! Form::open(['url'=>'profileEdit', 'files' => true]) !!}
-                            <button id="editcoverimg_btn" class="btn btn-primary" type="button" style="text-align: center; padding: 10px; margin-left: -15px;" onclick="document.getElementById('changeCoverImg').click();">Change cover image</button>
-                            <input type="file" name="coverImg" id="changeCoverImg" class="form-control" style="display: none;"/>
-                        @endif
-                        @endif
-                        <br/>
+
                         <h5 style='border-bottom: 1px solid #d1cccc; margin-top:2%;'></h5>
+
                     </div>
+                                            <div id="editcoverimg_div" style="margin-top: -1%; padding: 15px; box-shadow: 1px 1px 30px gray; margin-left: -21.5%; margin-right: -21.5%;
+                            background-position: center; background-color: #fff; background-repeat: no-repeat;">
+                                            @if (Auth::check())
+                                                @if (Auth::id() == $profile->userid)
+                                                    {!! Form::open(['url'=>'profileEdit', 'files' => true]) !!}
+                                                    <a id="editcoverimg_btn" class="btn btn-primary"  type="button" style="text-align: center; border-color: #a0a0a0; letter-spacing: 0.5px; padding: 10px; background-color: #5bc0de00 !important; color: #4C4C4C; font-size: 18px; " onclick="document.getElementById('changeCoverImg').click();">Change cover image</a>
+                                                    <input type="file" name="coverImg" id="changeCoverImg" class="form-control" style="display: none;"/>
+                                                @endif
+                                            @endif
+                                            </div>
                         <br/>
                             @if($profile == null)
                                                 <div id="aboutbox" style="box-shadow: 1px 1px 20px gray; width: 40%; margin: auto;">
@@ -447,13 +421,13 @@
 
                                                                 <div class="profimg_wrap">
                                                                 @if ($profile->profilePic != null)
-                                                                    <img id="profileimage" style="max-width: 300px; border-radius: 50%;" type='image' src="{{asset('public/uploads/users/'.$profile->userid.'/profile/photo/'.$profile->profilePic)}}">
+                                                                    <img id="profileimage" style="max-width: 300px; border-radius: 50%;" type='image' src="{{asset('uploads/users/'.$profile->userid.'/profile/photo/'.$profile->profilePic)}}">
                                                                 @else
                                                                     <img id="profileimage" style="max-width: 300px; border-radius: 50%;" type='image' src="https://vimcare.com/assets/empty_user-e28be29d09f6ea715f3916ebebb525103ea068eea8842da42b414206c2523d01.png">
                                                                 @endif
                                                             @if (Auth::check())
                                                                 @if (Auth::id() == $profile->userid)
-                                                                            <button id="profimg_description" class="btn btn-primary" type="button" style="width: 100%; border-radius: 50%;" onclick="document.getElementById('changeProfilePic').click();">Change profile picture</button>
+                                                                            <button id="profimg_description" class="btn btn-primary" type="button" style="width: 100%; border-color: #e8d084; border-radius: 50%; color: white; font-size: 18px;" onclick="document.getElementById('changeProfilePic').click(); ">Change profile picture</button>
                                                                 </div>
                                                                             <input type="file" name="profilePic" id="changeProfilePic" class="form-control" style="display: none;"/>
                                                                 <img id="profileimage" style="max-width: 300px; border-radius: 50%;" type='image' src="">
@@ -461,7 +435,7 @@
                                                             @else </div> @endif
 
 
-                                                        <div id="aboutbox" style="box-shadow: 1px 1px 20px gray; width: 40%; margin: auto;">
+                                                        <div id="aboutbox" style="box-shadow: 1px 1px 20px gray; width: 40%; margin: auto; margin-top: 30px;">
                                 <div id="profilecontent">
                                     <h3 style="text-align: center; margin-top:3.5%; margin-bottom: 2%; padding: 2%; font-weight: bold; color: #484848; box-shadow: 0 2px 2px -2px gray; margin-left: 5%; margin-right: 5%;">ABOUT</h3>
                                     @if (Auth::check())
@@ -472,7 +446,7 @@
                                         <label style="color: #484848; font-weight: bold;">Bio:</label>
                                         <textarea class="form-control" name="bio2" style="display: none; text-align: justify; max-width: 90%; margin-left: 5%; color: #767575; margin-right: 5%;" rows="5">{{$profile->about}}</textarea>
                                         <textarea class="form-control" name="bio" style="text-align: justify; max-width: 90%; margin-left: 5%; color: #767575; margin-right: 5%;" rows="5">{{$profile->about}}</textarea>
-                                        <button class="btn btn-primary" style="text-align: center; padding: 10px; margin-top: 28px; margin-bottom: 5%; width: 120px;" type="submit" value="Submit">Save</button>
+                                        <button id="save_btn" class="btn btn-primary" style="text-align: center; padding: 10px; margin-top: 28px; margin-bottom: 5%; width: 120px; color: #484848; background-color: #5bc0de00 !important; border-color: #a0a0a0; letter-spacing: 0.5px; font-size: 18px;" type="submit" value="Submit">Save</button>
                                         {!! Form::close() !!}
                                     @else
                                         <h6 style="text-align: justify; word-wrap: anywhere; margin-left: 5%; color: #767575; margin-right: 5%; ">{{$profile->about}}</h6>
@@ -518,12 +492,16 @@
         <!-- TELOS PINAKA -->
 
 
-
+    <br/><br/><br/>
     </newscolumn>
 </div>
 
-<div style="margin-top:700px;">
 
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
+<div style="margin-left: -21.5%;">
+@include('footer')
 </div>
 </body>
 

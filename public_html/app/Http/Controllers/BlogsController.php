@@ -331,7 +331,7 @@ class BlogsController extends Controller
             if (strlen($title) > 132) {
 
                 // truncate string
-                $stringCutTitle = substr($title, 0, 132);
+                $stringCutTitle = substr($title, 0, 80);
                 $endPointTitle = strrpos($stringCutTitle, ' ');
 
                 //if the string doesn't contain any space then it will cut without word basis.
@@ -368,12 +368,12 @@ class BlogsController extends Controller
 
         if ($charpos !== false){
             if (substr($string, $charpos+1,$charpos+1) === ' '){
-                $letters_limit = 324;
+                $letters_limit = 200;
             } else {
-                $letters_limit = 324 * 5;
+                $letters_limit = 200 * 5;
             }
         } else {
-            $letters_limit = 324;
+            $letters_limit = 200;
         }
 
         return $letters_limit;

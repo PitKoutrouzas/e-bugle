@@ -1,9 +1,15 @@
 .table-responsive:not(#header) th {    display: table;  width:100%;    }
 .table-responsive:not(#header) td {    display: table-row; }
-#searchbar { text-align: right;}
-#searchinput { display: inline; width: 40%; !important;}
+#searchbar { margin-left: 0%; text-align: center;}
+#searchinput { display: inline; margin-left: 0%; text-align: center; }
+#searchinput { width: 75%; !important;}
 #profilelink {margin-left: 25%; !important;}
 #loginlink {margin-left: 55%; !important;}
+.blogImg {max-width: 250%; !important; max-height: 100% !important;}
 
 #profilebox {display: none;}
 #blogsfeed {margin-left: -5%; !important;}
+
+#navbar_desktop {display: none;}
+#navbar_mobile {display: inline;}
+/*#footer_bottom {bottom: -105vh;}*/

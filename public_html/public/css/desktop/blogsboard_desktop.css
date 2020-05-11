@@ -1,37 +1,88 @@
-@media all and (min-width: 1419px) {
-    #searchinput { width: 40%; !important;}
-    #profilelink {margin-left: -50%; !important;}
-    #loginlink {margin-left: -105%; !important;}
+@media all and (min-width: 1367px) {
+    #searchinput { width: 80%; !important;}
+    #profilelink {margin-left: -65%; !important;}
+    #loginlink {margin-left: -105% !important; padding-right: 100px;}
 
-    #covertitle {margin-left: 11.5% !important;}
-    #newblogbtn {margin-left: 11.5% !important;}
+    #covertitle {margin-left: 20% !important;}
+    #newblogbtn {margin-left: 20% !important;}
     #blogsfeed {margin-left: 15%; !important; margin-right: -10%;}
     .blogImg {width: 600px !important; padding-right: 0% !important}
+    #navbar_mobile {display: none;}
 }
 
-@media all and (min-width: 768px) and (max-width:1418px) {
+@media all and (min-width: 1325px) and (max-width:1366px) {
+    .blogImg {width: 450px !important; padding-right: 0% !important}
+    h4 {font-size: 17px !important;}
+    h5 {font-size: 13px !important;}
+    #remov_break {display: none;}
+
+
+    #searchbar { text-align: right;}
+    #searchinput { display: inline; width: 80%; !important;}
+    #profilelink {margin-left: -65%; !important;}
+    #loginlink {margin-left: -105%; !important;}
+    #covertitle {margin-left: 20% !important;}
+    #newblogbtn {margin-left: 20% !important;}
+
+    #blogsfeed {margin-left: 15% !important; margin-right: -10% !important;}
+    #navbar_mobile {display: none;}
+}
+
+@media all and (min-width: 1025px) and (max-width:1324px) {
     .table-responsive:not(#header) th {    display: table;  width:100%;    }
     .table-responsive:not(#header) td {    display: table-row; }
     #searchbar { text-align: right;}
-    #searchinput { display: inline; width: 40%; !important;}
+    #searchinput { display: inline; width: 80%; !important;}
+    #profilelink {margin-left: -65%; !important;}
+    #loginlink {margin-left: -105%; !important;}
+    #covertitle {margin-left: 20% !important;}
+    #newblogbtn {margin-left: 20% !important;}
+
+    #blogsfeed {margin-left: 21.5%; !important;}
+    #navbar_mobile {display: none;}
+}
+
+@media all and (min-width: 768px) and (max-width:1024px) {
+    .table-responsive:not(#header) th {    display: table;  width:100%;    }
+    .table-responsive:not(#header) td {    display: table-row; }
+    #searchbar { margin-left: 0%; text-align: center;}
+    #searchinput { display: inline; margin-left: 0%; text-align: center; }
+    #searchinput { width: 75%; !important;}
     #profilelink {margin-left: 25%; !important;}
     #loginlink {margin-left: 55%; !important;}
 
     #profilebox {display: none;}
     #blogsfeed {margin-left: -5%; !important;}
+    .blogImg {max-width: 250%; !important; max-height: 100% !important;}
+
+    #navbar_desktop {display: none;}
+    #navbar_mobile {display: inline;}
 }
 
 @media all and (max-width:767px) {
     .table-responsive th {    display: table;  width:50%;    }
     .table-responsive td {    display: table-row; }
-    .blogImg {max-width:450px; height:200px;}
-    #searchbar { text-align: center;}
-    #searchth {    display: inline;}
+    .blogImg {max-width:50%; !important; max-height:200px; !important; padding-right: 0% !important;}
+    #searchbar { margin-left: 0%; text-align: center;}
+    #searchinput { display: inline; margin-left: 0%; text-align: center; }
     #searchinput { width: 75%; !important;}
     #profilelink {margin-left: -5%; !important;}
     #loginlink {margin-left: -5%; !important;}
 
     #profilebox {display: none;}
     #blogsfeed {margin-left: -5%; !important;}
-    .formatted_description {width: 125%;}
+    .formatted_description {width: 50%; text-align: left;}
+    .formatted_title {width: 25%;}
+    #blog_details {width: 50%;}
+
+    .details_exp { text-align: center; !important; width: 400% !important}
+
+    /*#header { display: initial !important;}*/
+    /*.formatted_title { text-align: center;}*/
+    /*.table-responsive {margin-left: auto; margin-right: auto;}*/
+    #covertitle {margin-left: 20%; margin-right: 20%;}
+
+    #navbar_desktop {display: none;}
+    #navbar_mobile {display: inline;}
+    /*#footer_bottom {bottom: -90vh;}*/
 }

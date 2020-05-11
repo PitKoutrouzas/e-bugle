@@ -12,6 +12,18 @@
     <link rel="stylesheet" type="text/css" href="../../public/css/desktop/blogsfeed_desktop.css">
     <style type="text/css">
 
+        /*----footer css-----*/
+
+        #footer {
+            left: 0;
+            bottom: 0;
+            height: 100px;
+            width: 100%;
+            overflow: hidden;            /* Footer height */
+        }
+
+        /*------------------*/
+
         .hrclass{
             color: #A9E2F3;
         }
@@ -21,6 +33,10 @@
             line-height: 1.6 !important;
             text-decoration: none;
         }
+
+        h3 { font-size: 28px !important; letter-spacing: 0.25px !important;}
+
+        h4 { font-size: 17px !important;}
 
         a:hover {
             color: #337ab7 !important;
@@ -171,21 +187,32 @@
             width: 100%;
         }
 
+        a:hover {
+            color: #ebc349 !important;
+        }
+
+        textarea:focus {
+            border-color: #ebc349 !important;
+        }
+
+        input:focus {
+            border-color: #ebc348 !important;
+        }
+
     </style>
     <meta charset="utf-8">
     <!-- Latest compiled JavaScript -->
 
-    <title>Blogs</title>
     <!-- Latest compiled and minified CSS -->
 
     @if ($agent->isDesktop())
-        <link rel="stylesheet" href="{{asset('public/css/desktop/blogsfeed_desktop.css')}}">
+        <link rel="stylesheet" href="{{asset('css/desktop/blogsfeed_desktop.css')}}">
     @elseif ($agent->isTablet())
-        <link rel="stylesheet" href="{{asset('public/css/tablet/blogsfeed_tablet.css')}}">
+        <link rel="stylesheet" href="{{asset('css/tablet/blogsfeed_tablet.css')}}">
     @elseif ($agent->isMobile())
-        <link rel="stylesheet" href="{{asset('public/css/mobile/blogsfeed_mobile.css')}}">
+        <link rel="stylesheet" href="{{asset('css/mobile/blogsfeed_mobile.css')}}">
     @else
-        <link rel="stylesheet" href="{{asset('public/css/desktop/blogsfeed_desktop.css')}}">
+        <link rel="stylesheet" href="{{asset('css/desktop/blogsfeed_desktop.css')}}">
     @endif
 
     <link rel="stylesheet" type="text/css" href="main_responsive.css">
@@ -198,11 +225,10 @@
 
     <!-- jQuery library -->
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.7/jquery.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <!-- Latest compiled JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <script>
         $(document).ready(function () {
@@ -227,6 +253,7 @@
 
 
 <body>
+<title>E-Bugle</title>
 <!--HEADER START-->
 <!-- Section to host top layout of page-->
 <?php
@@ -274,71 +301,9 @@
                 <br/><br/>
             </div>
         @else
-            <br/>
-            <table id="header" class="table-responsive" style="width: 122%; margin-left: -15%; border: 0; margin-top: -10px;">
-                <th style="width: 380px;">
-                    <div>
-                        <a href="{{url('/blogsfeed')}}">
-                            <img style="height: 70px; margin-left: 90px;" src="{{config('app.logo')}}">
-                        </a>
-                        <br/>
-                    </div>
-                </th>
-                <th @if (Auth::check()) style="padding-right: 30px;" @else style="padding-right: 50px;" @endif>
-                    @if (Auth::check())
-                    <div>
-                        <a id="blogslink" class="btn btn-link" style="float: left; text-decoration: none;  margin-left: -5%; font-size: 20px;" href="{{url("/blogsboard/". Auth::id())}}">My Blogs</a>
-
-                        <text id="titlebread" style="float: left; margin-left: 5px; "></text>
-                        <br/>
-                    </div>
-                    @endif
-                </th>
-
-                    <th @if (Auth::check())style="padding-right: 20px;" @else style="padding-right: 40px;" @endif>
-                        @if (Auth::check())
-                        <div>
-                            <a id="profilelink" class="btn btn-link" href="{{url("/profile/". Auth::id())}}" style="float: left; text-decoration: none; font-size: 20px;">My Profile</a>
-
-                            <text id="titlebread2" style="float: left; margin-left: 5px; "></text>
-                            <br/>
-                        </div>
-                            @endif
-                    </th>
-
-                @if (Auth::guest())
-                <th>
-                    <div>
-                        <a id="loginlink" class="btn btn-link" style="float: left; text-decoration: none;  font-size: 20px;" href="{{url('/login')}}">Log In</a>
-
-                        <text id="titlebread3" style="float: left; margin-left: 5px; "></text>
-                        <br/>
-                    </div>
-                </th>
-                @else
-                    <th>
-                        <div>
-                            <a id="loginlink" class="btn btn-link" style="float: left; text-decoration: none;  font-size: 20px;" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">Log out</a>
-
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                {{ csrf_field() }}
-                            </form>
-                            <br/>
-                        </div>
-                    </th>
-                @endif
-                <th id="searchth" style="text-align: right;">
-                    <div id="searchbar" style="padding-bottom: 10px;">
-                        {!! Form::open(['url'=>'blogsfeed']) !!}
-                        <input id="searchinput" type="text" class="form-control" style="display: inline; font-weight: normal;" name="namesearch" placeholder="<find blogs with keywords>">
-
-                        <input class="form-control" type="image" src="http://seiis.cut.ac.cy/~seiis_lab/iconsearch.png" style="display: inline-block; width:40px; top: 11.5px;  line-height: 0.54643 !important; position: relative; padding-left: 3px; padding-right: 3px; padding-bottom: 1px; padding-top: 1px; border: none; outline: none; box-shadow: none;"/>
-                        {!! Form::close() !!}
-                    </div>
-                </th>
-            </table>
-        @endif
+                @include('navbar')
+            @endif
+                @include('navbar_mobile')
 
         <div class="table-responsive" style="width:100%; margin: auto;">
 
@@ -347,26 +312,29 @@
 
         <!-- O PINAKAS -->
 
-        <div id="newsfeed">
+        <div id="newsfeed" style="min-height: 1000px;">
             <header>
                 <section class="features" style="padding-top: 0 !important;">
-                    <br/>
+                    <br/><br/>
                     @if (Auth::check())
                         @if ($profile->coverImg != null)
-                            <div style="margin-top: -1%; box-shadow: 1px 1px 50px gray; margin-left: -50%; margin-right: -50%; background-image: url({{asset('uploads/users/'.Auth::id().'/profile/cover/'.$profile->coverImg)}});
-                                    background-position: center; background-repeat: no-repeat;  background-color: #151515;">
+{{--                            <div style="margin-top: -1%; box-shadow: 1px 1px 50px gray; margin-left: -21.5%; margin-right: -21.5%; background-image: url({{asset('uploads/users/'.Auth::id().'/profile/cover/'.$profile->coverImg)}});--}}
+{{--                                    background-position: center; background-repeat: no-repeat;  background-color: #151515;">--}}
+                            <div>
                                 @else
-                                    <div style="margin-top: -1%; box-shadow: 1px 1px 50px gray; margin-left: -50%; margin-right: -50%; background-image: url('https://images.wallpaperscraft.com/image/bulb_lighting_rope_130830_2048x1152.jpg');
-                            background-position: center; background-repeat: no-repeat;  background-color: #151515;">
+{{--                                    <div style="margin-top: -1%; box-shadow: 1px 1px 50px gray; margin-left: -21.5%; margin-right: -21.5%; background-image: url('https://images.wallpaperscraft.com/image/bulb_lighting_rope_130830_2048x1152.jpg');--}}
+{{--                            background-position: center; background-repeat: no-repeat;  background-color: #151515;">--}}
+                                    <div>
                                         @endif
                                         @else
-                                            <div style="margin-top: -1%; box-shadow: 1px 1px 50px gray; margin-left: -50%; margin-right: -50%; background-image: url('https://images.wallpaperscraft.com/image/bulb_lighting_rope_130830_2048x1152.jpg');
-                            background-position: center; background-repeat: no-repeat;  background-color: #151515;">
+{{--                                            <div style="margin-top: -1%; box-shadow: 1px 1px 50px gray; margin-left: -21.5%; margin-right: -21.5%; background-image: url('https://images.wallpaperscraft.com/image/bulb_lighting_rope_130830_2048x1152.jpg');--}}
+{{--                            background-position: center; background-repeat: no-repeat;  background-color: #151515;">--}}
+                                            <div>
                                                 @endif
 
                                                 <br/>
                         <br/>
-                        <h2 id="covertitle" style="text-align: center; color: white; letter-spacing: 2px; max-width: 100%;">Blogs</h2>
+                                                <h2 id="covertitle" style="text-align: center; font-size: 53px; font-weight: bold; letter-spacing: 2px; max-width: 100%; ">Top Articles</h2>
                         <br/>
 {{--                        @if (Auth::check())--}}
 {{--                        <a id="newblogbtn" href="{{url('/blog/0')}}" class="btn btn-info btn-lg" style="color: white !important;">--}}
@@ -381,7 +349,7 @@
                     </div>
 
 
-                    <div id="blogsfeed" style="max-height: 2000px;">
+                    <div id="blogsfeed">
                         <br/>
                         <div class="wrapper" >
 
@@ -394,7 +362,8 @@
 
                                     <a href="{{ url("blog/".$blog->id) }}" style=" text-decoration: none;">
                                         <div href="{{ url("blog/".$blog->id) }}" class="details_exp" style="text-align: left; cursor: pointer;" onClick="location.href = '{{$blog}}'">
-                                            <h3 class="formatted_title" style=" text-decoration: none;" value="{{$blog->formatted_blogTitle}}"></h3>
+                                            <h3 class="formatted_title" style="text-decoration: none; font-weight: bold;" value="{{$blog->formatted_blogTitle}}"></h3>
+
                                             <table class="table-responsive" style="border: none;">
                                                 <th style="width: 50%; padding-right: 30px;">
                                                     @if ($blog->imgUpload != null)
@@ -405,14 +374,14 @@
                                                 </th>
                                                 <th>
 
-                                                    <h4 class="formatted_description" value="{{$blog->formatted_description}}" style="text-decoration: none; text-align: justify;">
+                                                    <h4 class="formatted_description" value="{{$blog->formatted_description}}" style="text-decoration: none;">
 
                                                     </h4>
 
 
                                                     more details<span>→</span>
                                                     <br/><br/>
-                                                    <h5><span class="glyphicon glyphicon-time"></span> {{$blog->formatted_created_at}}
+                                                    <h5 id="blog_details"><span class="glyphicon glyphicon-time"></span> {{$blog->formatted_created_at}}
                                                         @if ($blog->formatted_updated_at !== $blog->formatted_created_at)
                                                             (updated: {{$blog->formatted_updated_at}})
                                                         @endif<br/> <a href="{{url("/blogsboard/". $blog->userid)}}"><span class="glyphicon glyphicon-user"></span> {{$blog->name}} </a></h5>
@@ -431,6 +400,7 @@
                             @if ($blogs instanceof \Illuminate\Pagination\LengthAwarePaginator)
                                 {{$blogs->links("pagination::default")}}
                             @endif
+
                             <script>highlightKeywords();</script>
                         </div>
                     </div>
@@ -440,14 +410,18 @@
 
         <!-- TELOS PINAKA -->
 
-
+    <br/>
+            <div id="footer_bottom" style="position: absolute; margin-left: -21.5%; margin-top: 12%">
+                @include('footer')
+            </div>
 
     </newscolumn>
-</div>
-
-<div style="margin-top:700px;">
 
 </div>
+
+
+
 </body>
+
 
 </html>
