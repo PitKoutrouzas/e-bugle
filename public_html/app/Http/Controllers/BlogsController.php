@@ -112,7 +112,7 @@ class BlogsController extends Controller
     public function deleteBlog($id){
         $blogImg = Blog::where('id', $id)->first()->imgUpload;
         if ($blogImg !== null){
-            unlink(public_path('/uploads/users/'.Auth::id().'/blogs/'. Blog::where('id', $id)->first()->imgUpload));
+            unlink(base_path('/uploads/users/'.Auth::id().'/blogs/'. Blog::where('id', $id)->first()->imgUpload));
         }
 
         Blog::where('id', $id)->delete();
@@ -248,7 +248,7 @@ class BlogsController extends Controller
         if ($blogImg !== null){
             $blogImgFileName = date('d_m_Y').'_'.$blogImg->getClientOriginalName();
             $blog->imgUpload = $blogImgFileName;
-            $blogImg->move(public_path('/uploads/users/'.Auth::id().'/blogs'), $blogImgFileName);
+            $blogImg->move(base_path('/uploads/users/'.Auth::id().'/blogs'), $blogImgFileName);
         }
 
         $blog->save();
@@ -265,12 +265,12 @@ class BlogsController extends Controller
         if ($blogImg !== null){
             $previousImg = Blog::where('id', $id)->first()->imgUpload;
             if ($previousImg !== null){
-                unlink(public_path('/uploads/users/'.Auth::id().'/blogs/'. $previousImg));
+                unlink(base_path('/uploads/users/'.Auth::id().'/blogs/'. $previousImg));
             }
             $blogImgFileName = date('d_m_Y').'_'.$blogImg->getClientOriginalName();
             Blog::where('id', $id)
                 ->update(array('blogTitle' => $blogTitle, 'description' => $blogcontent, 'imgUpload' => $blogImgFileName));
-            $blogImg->move(public_path('/uploads/users/'.Auth::id().'/blogs'), $blogImgFileName);
+            $blogImg->move(base_path('/uploads/users/'.Auth::id().'/blogs'), $blogImgFileName);
         } else {
             Blog::where('id', $id)
                 ->update(array('blogTitle' => $blogTitle, 'description' => $blogcontent));

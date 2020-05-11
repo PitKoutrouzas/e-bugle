@@ -32,20 +32,20 @@ class ProfileController extends Controller
         if ($profilePic !== null){
             $previousImg = Profile::where('userid', Auth::id())->first()->profilePic;
             if ($previousImg !== null){
-                unlink(public_path('/uploads/users/'. Auth::id() . '/profile/photo/' . $previousImg));
+                unlink(base_path('/uploads/users/'. Auth::id() . '/profile/photo/' . $previousImg));
             }
             $profilePicName = date('d_m_Y').'_'.$profilePic->getClientOriginalName();
-            $profilePic->move(public_path('/uploads/users/' . Auth::id() . '/profile/photo'), $profilePicName);
+            $profilePic->move(base_path('/uploads/users/' . Auth::id() . '/profile/photo'), $profilePicName);
             $toBeStoredArr["profilePic"] = $profilePicName;
         }
 
         if ($coverImg !== null){
             $previousImg = Profile::where('userid', Auth::id())->first()->coverImg;
             if ($previousImg !== null){
-                unlink(public_path('/uploads/users/'. Auth::id() . '/profile/cover/' . $previousImg));
+                unlink(base_path('/uploads/users/'. Auth::id() . '/profile/cover/' . $previousImg));
             }
             $coverImgName = date('d_m_Y').'_'.$coverImg->getClientOriginalName();
-            $coverImg->move(public_path('/uploads/users/' . Auth::id() . '/profile/cover'), $coverImgName);
+            $coverImg->move(base_path('/uploads/users/' . Auth::id() . '/profile/cover'), $coverImgName);
             $toBeStoredArr["coverImg"] = $coverImgName;
         }
 
