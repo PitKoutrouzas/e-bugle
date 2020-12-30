@@ -43,9 +43,10 @@
             </div>
         </th>
         @if (Auth::guest())
+
             <th style="width: 360px;">
                 <div style="padding-right: 235px;">
-                    <a id="loginlink" class="btn btn-link" style="text-decoration: none; float: right;  font-size: 18px; letter-spacing: 0.5px;" href="{{url('/login')}}"><span class="glyphicon glyphicon-log-in" style="left: -3px;"></span>   Sign In</a>
+                    <a id="loginlink" class="btn btn-link" style="text-decoration: none; float: right;  font-size: 18px; letter-spacing: 0.5px;" href="{{url('/login')}}"><span class="glyphicon glyphicon-log-in" style="left: -3px;"></span>   Sign In / <span class="glyphicon glyphicon-user"></span> Register</a>
 
                     <text id="titlebread3" style="float: left; margin-left: 5px; "></text>
                     <br/>

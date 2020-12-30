@@ -17,7 +17,8 @@ class BlogsController extends Controller
         $userLoggedArr = $this->checkUserLogged();
 
         if($request != null && !empty($request)) {
-            if ($request->request->get("namesearch") != null){
+            if ($request->request->get("namesearch")
+                != null){
                 $retrieveBlogs = $this->retrieveBlogsByKeywords($request);
             } else {
                 $retrieveBlogs = $this->retrieveBlogsByTitle($id, true);
@@ -97,6 +98,18 @@ class BlogsController extends Controller
             $userid = $blog->userid;
         }
 
+        $countblogs = Blog::all()->count();
+        if ($countblogs > 6){
+            $countblogs = 6;
+        }
+
+        $moreblogs = Blog::join('profiles', 'blogs.userid', '=', 'profiles.userid')
+            ->select('blogs.id', 'blogs.userid',  'blogs.blogTitle', 'blogs.imgUpload', 'profiles.about',  'profiles.profilePic')
+            ->whereNotIn('blogs.id', [$id])
+            ->inRandomOrder()
+            ->limit($countblogs)
+            ->get();
+
 //        $userid = 0;
 //        if (Auth::check()){
 //            $userid = Auth::id();
@@ -106,7 +119,7 @@ class BlogsController extends Controller
 
         $agent = new Agent();
 
-        return view("/blog", compact("blog", "profile", "agent"));
+        return view("/blog", compact("blog", "profile", "agent", "moreblogs"));
     }
 
     public function deleteBlog($id){

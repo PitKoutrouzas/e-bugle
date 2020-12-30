@@ -125,10 +125,10 @@
         @include('navbar_login')
         @include('navbar_login_mobile')
 
-        <br/><br/><br/><br/><br/>
+        <br/><br/><br/>
         @yield('content')
 
-        <div id="footer_bottom" style="position: absolute; bottom: -210px;">
+        <div id="footer_bottom" style="position: absolute; bottom: -250px;">
         @include('footer')
         </div>
     </div>

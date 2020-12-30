@@ -1,5 +1,6 @@
 .table-responsive:not(#header) th {    display: table;  width:100%;    }
-.table-responsive:not(#header) td {    display: table-row; }
+/*.table-responsive:not(#header) td {    display: table-row; }*/
+
 #searchbar { text-align: right;}
 #searchinput { display: inline; width: 40%; !important;}
 #searchinput { width: 75%; !important;}
@@ -17,3 +18,21 @@ iframe {max-width:100%;}
 #navbar_mobile {display: inline;}
 #footer_margin {margin-left: -21.5%}
 #footer_margin0 {margin-left: -19%}
+
+#more_blogs_table:not(#header) th {    display: table;  width:100%; margin-bottom: 10%;    }
+
+/*--ABOUT THE AUTHOR--*/
+#description_author {margin-left: 150%;}
+#name_author {margin-left: 5%; margin-top: 2%; margin-right: 40%;}
+#title_author {margin-left: 5%; padding-top: 5%; margin-top: -5%}
+#bio_author {margin-left: -60%; padding-top: 5%; margin-right: 45%; margin-top: 17%;}
+
+.profimg_wrap {
+    max-width: 400px;
+    display: inline-block;
+    border-radius: 50%;
+    position: relative;
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+}

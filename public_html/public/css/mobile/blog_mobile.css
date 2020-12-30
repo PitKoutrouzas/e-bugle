@@ -1,5 +1,6 @@
 .table-responsive th {    display: table;  width:50%;    }
-.table-responsive td {    display: table-row; }
+/*.table-responsive td {    display: table-row; } */
+
 .blogImg {max-width: 400px;}
 #searchbar { margin-left: 0%; text-align: center;}
 #searchinput { display: inline; margin-left: 0%; text-align: center; }
@@ -21,3 +22,24 @@ iframe {max-width:100%;}
 #navbar_desktop {display: none;}
 #navbar_mobile {display: inline;}
 #footer_margin0 {margin-left: 1%}
+
+#more_blogs_table:not(#header) th {    display: table;  width:100%; margin-bottom: 10%;    }
+#more_blogs_table {border: 0;}
+.more_blog{ width: 300px !important; height: 250px !important;}
+#stats_part { height: 12.5% !important; margin-top: 28% !important;}
+
+/*--ABOUT THE AUTHOR--*/
+#description_author {margin-left: 108%;}
+#name_author {margin-left: 5%; margin-top: 2%; margin-right: 40%;}
+#title_author {margin-left: 5%; padding-top: 5%; margin-top: -5%}
+#bio_author {margin-left: -50%; padding-top: 5%; margin-right: 60%; margin-top: 17%;}
+
+.profimg_wrap {
+    max-width: 400px;
+    display: inline-block;
+    border-radius: 50%;
+    position: relative;
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+}

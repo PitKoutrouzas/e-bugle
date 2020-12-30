@@ -34,7 +34,7 @@
                     <input class="form-control" type="image" src="http://seiis.cut.ac.cy/~seiis_lab/iconsearch.png" style="display: inline-block; width:40px; top: 11.5px;  line-height: 0.54643 !important; position: relative; padding-left: 3px; padding-right: 3px; padding-bottom: 1px; padding-top: 1px; border: none; outline: none; box-shadow: none;"/>
                     {!! Form::close() !!}
                 </div>
-                <div><a class="btn btn-link" style="text-decoration: none;  font-size: 20px;" href="{{url('/login')}}">Log In</a></div>
+                <div><a class="btn btn-link" style="text-decoration: none;  font-size: 20px;" href="{{url('/login')}}"><span class="glyphicon glyphicon-log-in"></span> Sign In / <span class="glyphicon glyphicon-user"></span> Register</a></div>
             @endif
 
             <p style="visibility: hidden; margin-bottom: -5px;">Item 3</p>

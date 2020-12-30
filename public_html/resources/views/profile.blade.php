@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <meta http-equiv="Cache-control" content="no-cache">
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather" />
@@ -197,6 +198,19 @@
             color: #ebc349 !important;
         }
 
+        .profimg_wrap {
+            width: 300px;
+            height: 300px;
+            overflow: hidden;
+        }
+
+        .profimg_wrap img {
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+            margin: -0px 0 0 -0px;
+        }
+
     </style>
     <meta charset="utf-8">
     <!-- Latest compiled JavaScript -->
@@ -224,6 +238,7 @@
     <!-- jQuery library -->
 
     <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
 
     <!-- Latest compiled JavaScript -->
@@ -245,8 +260,38 @@
                 elements_title[i].innerHTML = elements_title[i].getAttribute("value");
                 elements_description[i].innerHTML = elements_description[i].getAttribute("value");
             }
+        }
 
+        function readProfileURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
 
+                reader.onload = function (e) {
+                    $('#profileimage')
+                        .attr('src', e.target.result);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function readCoverURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#coverdiv')
+                        .attr('style', 'background-image:url(' + e.target.result +'); ' +
+                            'background-position: center; ' +
+                            'margin-left: -21.5%; ' +
+                            'margin-right: -21.5%; ' +
+                            'background-repeat: no-repeat; ' +
+                            'background-color: #151515; ' +
+                            'box-shadow: 1px 1px 50px gray; ');
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
         }
 
     </script>
@@ -365,10 +410,10 @@
                 <section class="features" style="padding-top: 0 !important;">
                     <br/><br/>
                         @if ($profile->coverImg != null)
-                                    <div style="margin-top: -1%; box-shadow: 1px 1px 50px gray; margin-left: -21.5%; margin-right: -21.5%; background-image: url({{asset('uploads/users/'.$profile->userid.'/profile/cover/'.$profile->coverImg)}});
+                                    <div id="coverdiv" style="margin-top: -1%; box-shadow: 1px 1px 50px gray; margin-left: -21.5%; margin-right: -21.5%; background-image: url({{asset('uploads/users/'.$profile->userid.'/profile/cover/'.$profile->coverImg)}});
                             background-position: center; background-repeat: no-repeat;  background-color: #151515;">
                                 @else
-                                    <div style="margin-top: -1%; box-shadow: 1px 1px 50px gray; margin-left: -21.5%; margin-right: -21.5%;
+                                    <div id="coverdiv" style="margin-top: -1%; box-shadow: 1px 1px 50px gray; margin-left: -21.5%; margin-right: -21.5%;
                             background-position: center; background-repeat: no-repeat;  background-color: #151515;">
                         @endif
 
@@ -386,7 +431,7 @@
                                                 @if (Auth::id() == $profile->userid)
                                                     {!! Form::open(['url'=>'profileEdit', 'files' => true]) !!}
                                                     <a id="editcoverimg_btn" class="btn btn-primary"  type="button" style="text-align: center; border-color: #a0a0a0; letter-spacing: 0.5px; padding: 10px; background-color: #5bc0de00 !important; color: #4C4C4C; font-size: 18px; " onclick="document.getElementById('changeCoverImg').click();">Change cover image</a>
-                                                    <input type="file" name="coverImg" id="changeCoverImg" class="form-control" style="display: none;"/>
+                                                    <input type="file" onchange="readCoverURL(this);" name="coverImg" id="changeCoverImg" class="form-control" style="display: none;"/>
                                                 @endif
                                             @endif
                                             </div>
@@ -421,16 +466,16 @@
 
                                                                 <div class="profimg_wrap">
                                                                 @if ($profile->profilePic != null)
-                                                                    <img id="profileimage" style="max-width: 300px; border-radius: 50%;" type='image' src="{{asset('uploads/users/'.$profile->userid.'/profile/photo/'.$profile->profilePic)}}">
+                                                                    <img id="profileimage" style="border-radius: 50%;" type='image' src="{{asset('uploads/users/'.$profile->userid.'/profile/photo/'.$profile->profilePic)}}">
                                                                 @else
-                                                                    <img id="profileimage" style="max-width: 300px; border-radius: 50%;" type='image' src="https://vimcare.com/assets/empty_user-e28be29d09f6ea715f3916ebebb525103ea068eea8842da42b414206c2523d01.png">
+                                                                    <img id="profileimage" style="border-radius: 50%;" type='image' src="https://vimcare.com/assets/empty_user-e28be29d09f6ea715f3916ebebb525103ea068eea8842da42b414206c2523d01.png">
                                                                 @endif
                                                             @if (Auth::check())
                                                                 @if (Auth::id() == $profile->userid)
                                                                             <button id="profimg_description" class="btn btn-primary" type="button" style="width: 100%; border-color: #e8d084; border-radius: 50%; color: white; font-size: 18px;" onclick="document.getElementById('changeProfilePic').click(); ">Change profile picture</button>
                                                                 </div>
-                                                                            <input type="file" name="profilePic" id="changeProfilePic" class="form-control" style="display: none;"/>
-                                                                <img id="profileimage" style="max-width: 300px; border-radius: 50%;" type='image' src="">
+                                                                            <input type="file" onchange="readProfileURL(this);" name="profilePic" id="changeProfilePic" class="form-control" style="display: none;"/>
+                                                                <img id="profileimage" style="border-radius: 50%;" type='image' src="">
                                                                 @else </div> @endif
                                                             @else </div> @endif
 
@@ -444,8 +489,8 @@
                                         <input class="form-control" name="name" style="text-align: justify; max-width: 90%; word-wrap: anywhere; margin-left: 5%; color: #767575; margin-right: 5%;" value="{{$profile->name}}">
                                         <br/>
                                         <label style="color: #484848; font-weight: bold;">Bio:</label>
-                                        <textarea class="form-control" name="bio2" style="display: none; text-align: justify; max-width: 90%; margin-left: 5%; color: #767575; margin-right: 5%;" rows="5">{{$profile->about}}</textarea>
-                                        <textarea class="form-control" name="bio" style="text-align: justify; max-width: 90%; margin-left: 5%; color: #767575; margin-right: 5%;" rows="5">{{$profile->about}}</textarea>
+                                        <textarea class="form-control" name="bio2" style="display: none; text-align: justify; max-width: 90%; margin-left: 5%; color: #767575; margin-right: 5%;" maxlength="383" rows="5">{{$profile->about}}</textarea>
+                                        <textarea class="form-control" name="bio" style="text-align: justify; max-width: 90%; margin-left: 5%; color: #767575; margin-right: 5%;" maxlength="383" rows="5">{{$profile->about}}</textarea>
                                         <button id="save_btn" class="btn btn-primary" style="text-align: center; padding: 10px; margin-top: 28px; margin-bottom: 5%; width: 120px; color: #484848; background-color: #5bc0de00 !important; border-color: #a0a0a0; letter-spacing: 0.5px; font-size: 18px;" type="submit" value="Submit">Save</button>
                                         {!! Form::close() !!}
                                     @else

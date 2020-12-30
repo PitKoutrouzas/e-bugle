@@ -247,6 +247,7 @@
         <link rel="stylesheet" href="{{asset('css/desktop/blog_desktop.css')}}">
     @endif
 
+    <link rel="stylesheet" href="{{asset('css/more_blogs.css')}}">
 
 
     <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
@@ -513,10 +514,84 @@
 
                                         <script>showContent();</script>
 
-                                        <br/>
-
                                     </div>
 
+                                    <div id="about_author" style="
+width: 100%;
+height: 300px;
+padding: 5%;
+margin-left: 5%;
+text-align: left;
+color: #4C4C4C;
+letter-spacing: 0.5px;
+margin-bottom: 10%;"><h2 id="title_about_author" style="
+font-weight: bold;
+letter-spacing: 0.5px;
+padding-bottom: 2.5%;
+font-size: 20px;">ABOUT THE AUTHOR</h2>
+                                        <div id="profile_author" style="
+float: left;
+text-align: left;
+position: absolute;
+z-index: 5;"><div id="description_author" style="
+position: absolute;
+height: 100%;
+width: 230%;
+border-left: 1px solid #E1E9ED;"><h3 id="name_author" style="">{{$blog->name}}</h3><h4 id="title_author" style="">Writer</h4><h5 id="bio_author" style="">{{$profile->about}}</h5>
+                                            </div><div class="profimg_wrap"><img src="{{asset('uploads/users/'.$profile->userid.'/profile/photo/'.$profile->profilePic)}}" style="object-fit: cover; width: 100%; height: 100%;"></div> </div></div>
+
+                                    <br/><br/><br/><br/><br/><br/>
+
+                                    <h1 style="text-align: center; color: #4C4C4C; font-size: 32px; letter-spacing: 0.5px; border-bottom: 1px solid #E1E9ED; padding: 20px;">
+                                        MORE BLOGS</h1>
+
+
+                                    <div id="more_blogs" style="margin-left: 2%;">
+                                        <table id="more_blogs_table" class="table-responsive" style="table-layout: fixed; width: 100%;">
+                                            @foreach($moreblogs as $mb_index => $moreblog)
+                                                @if ($mb_index <= 2)
+                                            <th>
+                                                <div class="more_blog">
+                                                    <div id="top_part" onclick="location.href='{{url("/blog/". $moreblog->id)}}';" style="cursor: pointer;"><img src="{{asset('uploads/users/'.$moreblog->userid.'/blogs/'.$moreblog->imgUpload)}}" style="width: 100%; height: 100%; object-fit: cover;"> </div>
+                                                    <div id="middle_part" onclick="location.href='{{url("/blogsboard/". $moreblog->userid)}}';" style="cursor: pointer;"><img id="middle_part_profile" src="{{asset('uploads/users/'.$moreblog->userid.'/profile/photo/'.$moreblog->profilePic)}}" style="object-fit: cover; width: 85%; height: 85%;"></div>
+                                                <div id="bottom_part" onclick="location.href='{{url("/blog/". $moreblog->id)}}';" style="cursor: pointer;"><p id="bottom_part_description">{{$moreblog->blogTitle}}</p></div>
+{{--                                                <div id="stats_part"><table style="table-layout: fixed; width: 100%; font-size: 14px;">--}}
+{{--                                                        <td id="stats_likes" class="more_blogs_stats"><span class="glyphicon glyphicon-heart" style="left: -7.5%;"></span>23</td>--}}
+{{--                                                        <td id="stats_comments" class="more_blogs_stats"><span class="glyphicon glyphicon-comment" style="left: -7.5%;"></span>6</td>--}}
+{{--                                                        <td id="stats_views" class="more_blogs_stats"><span class="glyphicon glyphicon-thumbs-up" style="left: -7.5%;"></span>187</td></table></div>--}}
+                                                </div>
+                                            </th>
+                                                @elseif ($mb_index == 3)
+                                                    <tr id="second_row_moreblogs">
+                                                        <br/><br/>
+                                                        <th>
+                                                            <div class="more_blog">
+                                                                <div id="top_part" onclick="location.href='{{url("/blog/". $moreblog->id)}}';" style="cursor: pointer;"><img src="{{asset('uploads/users/'.$moreblog->userid.'/blogs/'.$moreblog->imgUpload)}}" style="width: 100%; height: 100%; object-fit: cover;"> </div>
+                                                                <div id="middle_part" onclick="location.href='{{url("/blogsboard/". $moreblog->userid)}}';" style="cursor: pointer;"><img id="middle_part_profile" src="{{asset('uploads/users/'.$moreblog->userid.'/profile/photo/'.$moreblog->profilePic)}}" style="object-fit: cover; width: 85%; height: 85%;"></div>
+                                                                <div id="bottom_part" onclick="location.href='{{url("/blog/". $moreblog->id)}}';" style="cursor: pointer;"><p id="bottom_part_description">{{$moreblog->blogTitle}}</p></div>
+{{--                                                                <div id="stats_part"><table style="table-layout: fixed; width: 100%; font-size: 14px;">--}}
+{{--                                                                        <td id="stats_likes" class="more_blogs_stats"><span class="glyphicon glyphicon-heart" style="left: -7.5%;"></span>23</td>--}}
+{{--                                                                        <td id="stats_comments" class="more_blogs_stats"><span class="glyphicon glyphicon-comment" style="left: -7.5%;"></span>6</td>--}}
+{{--                                                                        <td id="stats_views" class="more_blogs_stats"><span class="glyphicon glyphicon-thumbs-up" style="left: -7.5%;"></span>187</td></table></div>--}}
+                                                            </div>
+                                                        </th>
+                                                        @else
+                                                            <th>
+                                                                <div class="more_blog">
+                                                                    <div id="top_part" onclick="location.href='{{url("/blog/". $moreblog->id)}}';" style="cursor: pointer;"><img src="{{asset('uploads/users/'.$moreblog->userid.'/blogs/'.$moreblog->imgUpload)}}" style="width: 100%; height: 100%; object-fit: cover;"> </div>
+                                                                    <div id="middle_part" onclick="location.href='{{url("/blogsboard/". $moreblog->userid)}}';" style="cursor: pointer;"><img id="middle_part_profile" src="{{asset('uploads/users/'.$moreblog->userid.'/profile/photo/'.$moreblog->profilePic)}}" style="object-fit: cover; width: 85%; height: 85%;"></div>
+                                                                    <div id="bottom_part" onclick="location.href='{{url("/blog/". $moreblog->id)}}';" style="cursor: pointer;"><p id="bottom_part_description">{{$moreblog->blogTitle}}</p></div>
+{{--                                                                    <div id="stats_part"><table style="table-layout: fixed; width: 100%; font-size: 14px;">--}}
+{{--                                                                            <td id="stats_likes" class="more_blogs_stats"><span class="glyphicon glyphicon-heart" style="left: -7.5%;"></span>23</td>--}}
+{{--                                                                            <td id="stats_comments" class="more_blogs_stats"><span class="glyphicon glyphicon-comment" style="left: -7.5%;"></span>6</td>--}}
+{{--                                                                            <td id="stats_views" class="more_blogs_stats"><span class="glyphicon glyphicon-thumbs-up" style="left: -7.5%;"></span>187</td></table></div>--}}
+                                                                </div>
+                                                            </th>
+                                                        @endif
+                                                @endforeach
+                                                    </tr>
+                                        </table>
+                                    </div>
 
                                 </div>
                                 <div id="footer_margin0" style="position: relative; bottom: -100px;">
