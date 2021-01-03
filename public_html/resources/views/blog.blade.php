@@ -182,6 +182,10 @@
             border: none;
         }
 
+        .tox-edit-area__iframe{
+            width: 100% !important;
+        }
+
         .tox-notifications-container {
             display: none;
         }
