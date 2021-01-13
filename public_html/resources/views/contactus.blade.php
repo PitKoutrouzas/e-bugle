@@ -1,5 +1,6 @@
 <html>
 <head>
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <meta charset="UTF-8">
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     <!-- Tab's CSS File -->

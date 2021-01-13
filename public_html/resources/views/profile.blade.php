@@ -2,6 +2,7 @@
 <!-- Na dimiourgisw form me collapsibles mesa kai na valw ena scroll mesa-->
 <html>
 <head>
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <meta charset="UTF-8">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <meta http-equiv="Cache-control" content="no-cache">
