@@ -29,7 +29,7 @@ return [
     |
     */
 
-    'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
+    'host' => env('MAIL_HOST', 'email-smtp.eu-west-3.amazonaws.com'),
 
     /*
     |--------------------------------------------------------------------------
@@ -56,8 +56,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'panantkou@hotmail.com'),
-        'name' => env('MAIL_FROM_NAME', 'E-Bugle Support'),
+        'address' => env('MAIL_FROM_ADDRESS', 'support@e-bugle.com'),
+        'name' => env('MAIL_FROM_NAME', 'E-Bugle Supportz'),
     ],
 
     /*

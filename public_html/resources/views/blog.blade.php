@@ -332,7 +332,7 @@
 @if(isset($blog))
     <title>{{$blog->blogTitle}}</title>
 @else
-    <title>New Article</title>
+    <title>New Post</title>
 @endif
 <!-- Section to host top layout of page-->
 <?php
@@ -446,7 +446,7 @@
                         <table id="head" class="table-responsive" style="left:200px; margin-left: 20%; margin-right: 50%; width: auto; border: none;">
                             <th class="titlehead" style="text-align:center; !important;">
                                 <a id="newblogbtn" href="{{url('/blog/0')}}" class="btn btn-info btn-lg" style="letter-spacing: 0.5px;">
-                                    <span class="glyphicon glyphicon-plus"></span> New Blog
+                                    <span class="glyphicon glyphicon-plus"></span> New Post
                                 </a>
                             </th>
                             <th id="editHead" style="padding: 10px;">
@@ -464,7 +464,7 @@
                             @endif
 
                         @else
-                            <h2 style="color: #484848; letter-spacing: 5px;">NEW BLOG</h2>
+                            <h2 style="color: #484848; letter-spacing: 5px;">NEW POST</h2>
                         @endif
                     </div>
 {{--                    <div style="box-shadow: 1px 1px 20px gray; width: 25%; margin-top: -15%; margin-left: -15%; position: absolute; background-color: ghostwhite" >--}}
@@ -514,7 +514,7 @@
                                         <img class="newsimage" src="{{asset('uploads/users/'.$profile->userid.'/blogs/'.$blog->imgUpload)}}" name="descr_img" id="descr_img" style="max-width: 75%; max-height: 400px;"/></img>
                                         <br/><br/><br/>
                                     @endif
-                                    <div id="descr" value="{{$blog->description}}" style="text-align:justify; left: 200px; margin-left: 10%; margin-right: 10%; font-size: 17px; white-space: pre-wrap;">
+                                    <div id="descr" value="{{$blog->description}}" style="text-align:left; left: 200px; margin-left: 10%; margin-right: 10%; font-size: 17px; white-space: pre-wrap;">
 
 
                                         <script>showContent();</script>
@@ -623,7 +623,7 @@ border-left: 1px solid #E1E9ED;"><h3 id="name_author" style="">{{$blog->name}}</
                                 <h5 id="titleline" style='border-bottom: 1px solid #d1cccc; margin-top:2%; margin-left: 11.7%; margin-right: 11.7%'></h5>
                             </div>
                             <br/><br/>
-                            <div type="text" id="blogView" name="blogView" value="gfd" class="feature" style="text-align:justify; left: 200px; margin-left: 10%; margin-right: 10%; font-size: 17px; white-space: pre-wrap;">
+                            <div type="text" id="blogView" name="blogView" value="gfd" class="feature" style="text-align:left; left: 200px; margin-left: 10%; margin-right: 10%; font-size: 17px; white-space: pre-wrap;">
                             </div>
                             <script>setInterval(showBlogDetails, 2500)</script>
 

@@ -291,7 +291,7 @@
 
         @if($userLoggedArr["type"] > 1)
             <div>
-                <a class="btn btn-link" style="float: left; " href="{{url("/blogsboard/". Auth::id())}}">My Blogs</a>
+                <a class="btn btn-link" style="float: left; " href="{{url("/blogsboard/". Auth::id())}}">My Blog</a>
 
                 <text id="titlebread" style="float: left; margin-left: 5px; "></text>
                 <br/><br/>

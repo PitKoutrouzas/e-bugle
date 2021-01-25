@@ -13,7 +13,7 @@
         <th @if (Auth::check()) style="padding-right: 30px;" @else style="padding-right: 50px;" @endif>
             @if (Auth::check())
                 <div>
-                    <a id="blogslink" class="btn btn-link" style="float: left; text-decoration: none;  margin-left: -5%; font-size: 18px; letter-spacing: 0.5px;" href="{{url("/blogsboard/". Auth::id())}}">My Blogs</a>
+                    <a id="blogslink" class="btn btn-link" style="float: left; text-decoration: none;  margin-left: -5%; font-size: 18px; letter-spacing: 0.5px;" href="{{url("/blogsboard/". Auth::id())}}">My Blog</a>
 
                     <text id="titlebread" style="float: left; margin-left: 5px; "></text>
                     <br/>
@@ -36,9 +36,9 @@
         <th id="searchth" style="text-align: right;">
             <div id="searchbar" style="padding-bottom: 10px;">
                 {!! Form::open(['url'=>'blogsfeed']) !!}
-                <input id="searchinput" type="text" class="form-control" style="display: inline; font-weight: normal;" name="namesearch" placeholder="enter keywords for blogs...">
+                <input id="searchinput" type="text" class="form-control" style="display: inline; font-weight: normal;" name="namesearch" placeholder="enter keywords for articles...">
 
-                <input class="form-control" type="image" src="https://scontent.fnic4-1.fna.fbcdn.net/v/t1.15752-9/51146996_367620357363884_2905690313710370816_n.png?_nc_cat=103&ccb=2&_nc_sid=58c789&_nc_ohc=gNTN6hRqgYQAX9qk-35&_nc_ht=scontent.fnic4-1.fna&oh=a8f27bf73715dff09819a697e69f5fcd&oe=60230AB9" style="display: inline-block; width:40px; top: 11.5px;  line-height: 0.54643 !important; position: relative; padding-left: 3px; padding-right: 3px; padding-bottom: 1px; padding-top: 1px; border: none; outline: none; box-shadow: none; background-color: #ffffff00;"/>
+                <input class="form-control" type="image" src="/uploads/ebugle_search_icon.png" style="display: inline-block; width:40px; top: 11.5px;  line-height: 0.54643 !important; position: relative; padding-left: 3px; padding-right: 3px; padding-bottom: 1px; padding-top: 1px; border: none; outline: none; box-shadow: none; background-color: #ffffff00;"/>
                 {!! Form::close() !!}
             </div>
         </th>

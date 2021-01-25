@@ -7,6 +7,7 @@ use App\Http\Constants;
 use App\Profile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 use Jenssegers\Agent\Agent;
 
 class BlogsController extends Controller
@@ -125,7 +126,11 @@ class BlogsController extends Controller
     public function deleteBlog($id){
         $blogImg = Blog::where('id', $id)->first()->imgUpload;
         if ($blogImg !== null){
-            unlink(base_path('/uploads/users/'.Auth::id().'/blogs/'. Blog::where('id', $id)->first()->imgUpload));
+            try {
+                unlink(base_path('/uploads/users/'.Auth::id().'/blogs/'. Blog::where('id', $id)->first()->imgUpload));
+            } catch (\Exception $e) {
+                // catch deletes from server
+            }
         }
 
         Blog::where('id', $id)->delete();
@@ -278,7 +283,11 @@ class BlogsController extends Controller
         if ($blogImg !== null){
             $previousImg = Blog::where('id', $id)->first()->imgUpload;
             if ($previousImg !== null){
-                unlink(base_path('/uploads/users/'.Auth::id().'/blogs/'. $previousImg));
+                try {
+                    unlink(base_path('/uploads/users/'.Auth::id().'/blogs/'. $previousImg));
+                } catch (\Exception $e) {
+                    // catch deletes from server
+                }
             }
             $blogImgFileName = date('d_m_Y').'_'.$blogImg->getClientOriginalName();
             Blog::where('id', $id)

@@ -450,12 +450,12 @@
                                         <h4 style="text-align: left !important; color: #484848; font-weight: bold;">Date Joined: </h4>
                                     </th>
                                     <th>
-                                        <h4 style="text-align: center; !important; color: #484848;">01 Jan 2020</h4>
+                                        <h4 style="text-align: left; !important; color: #484848;">01 Jan 2020</h4>
                                     </th>
                                 </tr>
                                 <tr>
                                     <th>
-                                        <h4 style="text-align: left !important; font-weight: bold; color: #484848;">Articles: </h4>
+                                        <h4 style="text-align: left !important; font-weight: bold; color: #484848;">Posts: </h4>
                                     </th>
                                     <th>
                                         <h4 style="text-align: center; !important; color: #484848;">0</h4>
@@ -511,15 +511,15 @@
                                                 <h4 style="text-align: left !important; color: #484848; font-weight: bold;">Date Joined: </h4>
                                             </th>
                                             <th>
-                                                <h4 style="text-align: center; !important; color: #484848;">{{$profile->date_created}}</h4>
+                                                <h4 style="text-align: left; !important; color: #484848;">{{$profile->date_created}}</h4>
                                             </th>
                                         </tr>
                                         <tr>
                                             <th>
-                                                <h4 style="text-align: left !important; font-weight: bold; color: #484848;">Articles: </h4>
+                                                <h4 style="text-align: left !important; font-weight: bold; color: #484848;">Posts: </h4>
                                             </th>
                                             <th>
-                                                <h4 style="text-align: center; !important; color: #484848;">{{$profile->counted_blogs}}</h4>
+                                                <h4 style="text-align: left; !important; color: #484848;">{{$profile->counted_blogs}}</h4>
                                             </th>
                                         </tr>
                                     </table>

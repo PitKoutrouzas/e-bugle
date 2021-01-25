@@ -13,7 +13,7 @@ return [
     */
 
     'name' => env('APP_NAME', 'E-Bugle'),
-    'logo' => 'https://scontent.fnic4-1.fna.fbcdn.net/v/t1.15752-9/92337726_796519450757369_3775839791547940864_n.png?_nc_cat=101&ccb=2&_nc_sid=ae9488&_nc_ohc=61j_SePzirQAX_Y4HEF&_nc_ht=scontent.fnic4-1.fna&oh=702e0f5033a772abdb7eaa8146711ba9&oe=60113BBB',
+    'logo' => '/uploads/ebugle_logo.png',
 
     /*
     |--------------------------------------------------------------------------

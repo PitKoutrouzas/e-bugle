@@ -13,7 +13,7 @@
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
                 <div class="panel-heading" style="text-align: center; font-size: 70px; font-weight: bold;">Sign In<br/>
-                    <p style="text-align: center; font-size: 16px; font-weight: normal;">Start writing your own blogs and articles immediately !</p>
+                    <p style="text-align: center; font-size: 16px; font-weight: normal;">Create your own blog and start writing immediately !</p>
                 </div>
 
 

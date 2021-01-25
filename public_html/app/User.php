@@ -47,7 +47,7 @@ class CustomPassword extends ResetPassword
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->from('panantkou@hotmail.com', 'E-Bugle Support')
+            ->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'))
             ->subject('Change password request')
             ->greeting('Hello There!')
             ->line('You are receiving this email because we received a password reset request for your account.')
