@@ -1,7 +1,7 @@
 .table-responsive:not(#header) th {    display: table;  width:100%;    }
 /*.table-responsive:not(#header) td {    display: table-row; }*/
 
-#searchbar { text-align: right;}
+#searchbar { text-align: right; box-shadow: 1px 1px 1px #C2C2C2;}
 #searchinput { display: inline; width: 40%; !important;}
 #searchinput { width: 75%; !important;}
 #profilelink {margin-left: 25%; !important;}

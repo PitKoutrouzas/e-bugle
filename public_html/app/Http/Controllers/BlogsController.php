@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Blog;
+use App\Category;
 use App\Http\Constants;
 use App\Profile;
 use Illuminate\Http\Request;
@@ -16,16 +17,20 @@ class BlogsController extends Controller
 
         $relpath = $this->getConstants();
         $userLoggedArr = $this->checkUserLogged();
+        $selected_category = null;
 
         if($request != null && !empty($request)) {
             if ($request->request->get("namesearch")
                 != null){
                 $retrieveBlogs = $this->retrieveBlogsByKeywords($request);
+            } else if ($request->input('category') != null) {
+                $selected_category = $request->input('category');
+                $retrieveBlogs = $this->retrieveBlogsByTitle($id, true, $selected_category);
             } else {
-                $retrieveBlogs = $this->retrieveBlogsByTitle($id, true);
+                $retrieveBlogs = $this->retrieveBlogsByTitle($id, true, nullOrEmptyString());
             }
         } else {
-            $retrieveBlogs = $this->retrieveBlogsByTitle($id, true);
+            $retrieveBlogs = $this->retrieveBlogsByTitle($id, true, nullOrEmptyString());
         }
 
         $blogs = $retrieveBlogs["query_results"];
@@ -34,9 +39,11 @@ class BlogsController extends Controller
         $namesearch = $retrieveBlogs["namesearch"];
         $profile = Profile::getProfileDetails($id);
 
+        $categories = Category::all();
+
         $agent = new Agent();
 
-        return view("/blogsboard", compact("newschange", "relpath", "userLoggedArr", "blogs", "namesearch", "profile", "agent"));
+        return view("/blogsboard", compact("newschange", "relpath", "userLoggedArr", "blogs", "namesearch", "profile", "agent", "categories", "selected_category"));
     }
 
     public function feed(Request $request){
@@ -48,10 +55,14 @@ class BlogsController extends Controller
             if ($request->request->get("namesearch") != null){
                 $retrieveBlogs = $this->retrieveBlogsByKeywords($request);
             } else {
-                $retrieveBlogs = $this->retrieveBlogsByTitle(0,false);
+                // if(!empty($category)) {
+                $retrieveBlogs = $this->retrieveBlogsByTitle(0,false, nullOrEmptyString());
+                // } else {
+                // $retrieveBlogs = $this->retrieveBlogsByTitle(0,false /*, $category */);
+                // }
             }
         } else {
-            $retrieveBlogs = $this->retrieveBlogsByTitle(0,false);
+            $retrieveBlogs = $this->retrieveBlogsByTitle(0,false, nullOrEmptyString());
         }
 
         $blogs = $retrieveBlogs["query_results"];
@@ -70,12 +81,35 @@ class BlogsController extends Controller
         return view("/blogsfeed", compact("newschange", "relpath", "userLoggedArr", "blogs", "namesearch", "profile", "agent"));
     }
 
+    public function feedWithCategory($category, Request $request){
+
+        $relpath = $this->getConstants();
+        $userLoggedArr = $this->checkUserLogged();
+
+        $retrieveBlogs = $this->retrieveBlogsByTitle(0,false, $category);
+
+        $blogs = $retrieveBlogs["query_results"];
+        $blogs = $this->addBlogViewFormatting($blogs, $request);
+
+        $namesearch = $retrieveBlogs["namesearch"];
+
+        if(Auth::check()){
+            $profile = Profile::getProfileDetails(Auth::id());
+        } else {
+            $profile = Profile::getProfileDetails(0);
+        }
+
+        $agent = new Agent();
+
+        return view("/blogsfeed", compact("newschange", "relpath", "userLoggedArr", "blogs", "namesearch", "profile", "agent", "category"));
+    }
+
     public function show($id){
 
         $relpath = $this->getConstants();
         $userLoggedArr = $this->checkUserLogged();
 
-        $retrieveBlogs = $this->retrieveBlogsByTitle($id,true);
+        $retrieveBlogs = $this->retrieveBlogsByTitle($id,true, nullOrEmptyString());
         $blogs = $retrieveBlogs["query_results"];
         $blogs = $this->addBlogViewFormatting($blogs, null);
 
@@ -118,9 +152,11 @@ class BlogsController extends Controller
 
         $profile = Profile::where('userid', $userid)->get()->first();
 
+        $categories = Category::all();
+
         $agent = new Agent();
 
-        return view("/blog", compact("blog", "profile", "agent", "moreblogs"));
+        return view("/blog", compact("blog", "profile", "agent", "moreblogs", "categories"));
     }
 
     public function deleteBlog($id){
@@ -161,17 +197,19 @@ class BlogsController extends Controller
         );
     }
 
-    public function retrieveBlogsByTitle($id, $isMyBlogs)
+    public function retrieveBlogsByTitle($id, $isMyBlogs, $category)
     {
         if (isset($_POST["namesearch"])) {
             $searchquery = $_POST["namesearch"];
             if (!empty($searchquery)) {
                 $_SESSION["searchquery"] = Blog::join('users', 'blogs.userid', '=', 'users.id')
-                    ->select('blogs.*', 'users.name')
+                    ->join('profiles', 'blogs.userid', '=', 'profiles.userid')
+                    ->select('blogs.*', 'users.name', 'profiles.profilePic')
                     ->where('blogTitle', 'like', '%' . $searchquery . '%')->orderByDesc('updated_at')->paginate(5);
             } else {
                 $_SESSION["searchquery"] = Blog::join('users', 'blogs.userid', '=', 'users.id')
-                    ->select('blogs.*', 'users.name')
+                    ->join('profiles', 'blogs.userid', '=', 'profiles.userid')
+                    ->select('blogs.*', 'users.name', 'profiles.profilePic')
                     ->orderByDesc('updated_at')->paginate(5);
             }
 
@@ -183,11 +221,18 @@ class BlogsController extends Controller
             if (isset($newschange) && $newschange > 0) {
                 $result = Blog::where('id', $newschange)->first();
             } else if ($isMyBlogs == true){
-                $result = $this->retrieveUserBlogs($id);
+                if (($category == nullOrEmptyString()) || ($category == "0")){
+                    $result = $this->retrieveUserBlogs($id, nullOrEmptyString());
+                } else {
+                    $result = $this->retrieveUserBlogs($id, $category);
+                }
             } else {
-                $result = $this->retrieveAllBlogs();
+                if ($category != nullOrEmptyString()){
+                    $result = $this->retrieveBlogsByCategory($category);
+                } else {
+                    $result = $this->retrieveAllBlogs();
+                }
             }
-
 
             return array(
                 "query_results" => $result,
@@ -196,31 +241,57 @@ class BlogsController extends Controller
         }
     }
 
-    public function retrieveUserBlogs($id){
+    public function retrieveUserBlogs($id, $category){
+        if ($category != nullOrEmptyString()){
             return Blog::join('users', 'blogs.userid', '=', 'users.id')
-                ->select('blogs.*', 'users.name')
+                ->join('categories', 'blogs.category', '=', 'categories.id')
+                ->select('blogs.*', 'users.name', 'categories.name as categoryName')
+                ->where('userid', $id)->where('category', $category)->orderByDesc('updated_at')->paginate(5);
+        } else {
+            return Blog::join('users', 'blogs.userid', '=', 'users.id')
+                ->join('categories', 'blogs.category', '=', 'categories.id')
+                ->select('blogs.*', 'users.name', 'categories.name as categoryName')
                 ->where('userid', $id)->orderByDesc('updated_at')->paginate(5);
+        }
     }
 
     public function retrieveAllBlogs(){
         $allblogs = Blog::join('users', 'blogs.userid', '=', 'users.id')
-            ->select('blogs.*', 'users.name')
+            ->join('profiles', 'blogs.userid', '=', 'profiles.userid')
+            ->join('categories', 'blogs.category', '=', 'categories.id')
+            ->select('blogs.*', 'users.name', 'categories.name as categoryName', 'profiles.profilePic')
             ->orderByDesc('updated_at')
             ->paginate(10);
 
         return $allblogs;
     }
 
+    public function retrieveBlogsByCategory($category){
+        $blogsByCategory = Blog::join('users', 'blogs.userid', '=', 'users.id')
+            ->join('profiles', 'blogs.userid', '=', 'profiles.userid')
+            ->join('categories', 'blogs.category', '=', 'categories.id')
+            ->select('blogs.*', 'users.name', 'categories.name as categoryName', 'profiles.profilePic')
+            ->where('category', $category)
+            ->orderByDesc('updated_at')
+            ->paginate(10);
+
+        return $blogsByCategory;
+    }
+
     public function retrieveBlogsByKeywords(Request $request){
         $keywords = explode(" ", $request->request->get("namesearch"));
 
         $query_results = Blog::join('users', 'blogs.userid', '=', 'users.id')
-            ->select('blogs.*', 'users.name')
+            ->join('profiles', 'blogs.userid', '=', 'profiles.userid')
+            ->join('categories', 'blogs.category', '=', 'categories.id')
+            ->select('blogs.*', 'users.name', 'categories.name as categoryName', 'profiles.profilePic')
             ->where('blogTitle', 'like', '%' . $request->request->get("namesearch") . '%')
             ->orWhere('description', 'like', '%' . $request->request->get("namesearch") . '%');
 
         $query_results2 = Blog::join('users', 'blogs.userid', '=', 'users.id')
-            ->select('blogs.*', 'users.name')
+            ->join('profiles', 'blogs.userid', '=', 'profiles.userid')
+            ->join('categories', 'blogs.category', '=', 'categories.id')
+            ->select('blogs.*', 'users.name', 'categories.name as categoryName', 'profiles.profilePic')
             ->where('blogTitle', 'like', '%' . $keywords[0] . '%')
             ->orWhere('description', 'like', '%' . $keywords[0] . '%');
 
@@ -251,10 +322,12 @@ class BlogsController extends Controller
         $blogTitle = $request->request->get("title");
         $blogcontent = $request->request->get("blogContent");
         $blogImg = $request->file('newsImg');
+        $blogCategory = $request->input('category');
 
         $blog = new Blog();
         $blog->blogTitle = $blogTitle;
         $blog->description = $blogcontent;
+        $blog->category = $blogCategory;
 
         if (Auth::check()){
             $blog->userid = Auth::id();
@@ -279,6 +352,7 @@ class BlogsController extends Controller
         $blogTitle = $request->request->get("title");
         $blogcontent = $request->request->get("blogContent");
         $blogImg = $request->file('newsImg');
+        $blogCategory = $request->input('category');
 
         if ($blogImg !== null){
             $previousImg = Blog::where('id', $id)->first()->imgUpload;
@@ -291,11 +365,11 @@ class BlogsController extends Controller
             }
             $blogImgFileName = date('d_m_Y').'_'.$blogImg->getClientOriginalName();
             Blog::where('id', $id)
-                ->update(array('blogTitle' => $blogTitle, 'description' => $blogcontent, 'imgUpload' => $blogImgFileName));
+                ->update(array('blogTitle' => $blogTitle, 'description' => $blogcontent, 'category' => $blogCategory, 'imgUpload' => $blogImgFileName));
             $blogImg->move(base_path('/uploads/users/'.Auth::id().'/blogs'), $blogImgFileName);
         } else {
             Blog::where('id', $id)
-                ->update(array('blogTitle' => $blogTitle, 'description' => $blogcontent));
+                ->update(array('blogTitle' => $blogTitle, 'description' => $blogcontent, 'category' => $blogCategory));
         }
 
 //        $blog->blogTitle = $blogTitle;

@@ -1,6 +1,6 @@
 .table-responsive:not(#header) th {    display: table;  width:100%;    }
 .table-responsive:not(#header) td {    display: table-row; }
-#searchbar { margin-left: 0%; text-align: center;}
+#searchbar { margin-left: 0%; text-align: center; box-shadow: 1px 1px 1px #C2C2C2;}
 #searchinput { display: inline; margin-left: 0%; text-align: center; }
 #searchinput { width: 75%; !important;}
 #profilelink {margin-left: 25%; !important;}
@@ -12,3 +12,4 @@
 
 #navbar_desktop {display: none;}
 #navbar_mobile {display: inline;}
+#categoryselect {width: 100%; margin-left: 0%;}

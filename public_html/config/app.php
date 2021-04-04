@@ -13,7 +13,7 @@ return [
     */
 
     'name' => env('APP_NAME', 'E-Bugle'),
-    'logo' => '/uploads/ebugle_logo.png',
+    'logo' => '/uploads/ebugletext.svg',
 
     /*
     |--------------------------------------------------------------------------

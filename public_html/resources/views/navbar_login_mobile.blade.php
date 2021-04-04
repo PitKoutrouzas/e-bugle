@@ -1,12 +1,12 @@
 <div id="navbar_login_mobile" style="position: fixed; left: 0; width: 100vw; background-color: #fff; z-index: 10; box-shadow: 1px 2px 1px #FDD26A;">
     <div style="float: left; margin-left: -20px;">
         <a href="{{url('/blogsfeed')}}">
-            <img style="height: 70px; margin-left: 50px;" src="{{config('app.logo')}}">
+            <img style="margin-top: 12px; height: 30px; margin-left: 50px;" src="{{config('app.logo')}}">
         </a>
         <br/>
     </div>
     <div>
-        <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo" style="float: right; color: #000 !important; background-color: #ffffff00 !important; border-color: #ffffff00 !important; margin-top: 15px; margin-right: 40px;">
+        <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo" style="margin-top:7px; margin-bottom:7px; float: right; color: #000 !important; background-color: #ffffff00 !important; border-color: #ffffff00 !important; margin-right: 40px;">
             <span class="icon-bar" style="margin-top: 4px; width: 25px; display: block; height: 3px; border-radius: 1px; background-color: #000;"></span>
             <span class="icon-bar" style="margin-top: 4px; width: 25px; display: block; height: 3px; border-radius: 1px; background-color: #000;"></span>
             <span class="icon-bar" style="margin-top: 4px; margin-bottom: 4px; width: 25px; display: block; height: 3px; border-radius: 1px; background-color: #000;"></span></button>

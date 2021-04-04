@@ -1,7 +1,7 @@
 .table-responsive th {    display: table;  width:50%;    }
 .table-responsive td {    display: table-row; }
 .blogImg {max-width:50%; !important; max-height:200px; !important; padding-right: 0% !important;}
-#searchbar { margin-left: 0%; text-align: center;}
+#searchbar { margin-left: 0%; text-align: center; box-shadow: 1px 1px 1px #C2C2C2;}
 #searchinput { display: inline; margin-left: 0%; text-align: center; }
 #searchinput { width: 75%; !important;}
 #profilelink {margin-left: -5%; !important;}
@@ -18,8 +18,11 @@
 /*#header { display: initial !important;}*/
 /*.formatted_title { text-align: center;}*/
 /*.table-responsive {margin-left: auto; margin-right: auto;}*/
-#covertitle {margin-left: 20%; margin-right: 20%;}
+#covertitle {margin-left: 12%; margin-right: 20%;}
 
 #navbar_desktop {display: none;}
 #navbar_mobile {display: inline;}
 /*#footer_bottom {bottom: -250vh;}*/
+#storyblogs_table { width:300%; }
+.bubble {display: none !important;}
+#titleline {margin-top: 28%;}

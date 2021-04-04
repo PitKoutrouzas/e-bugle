@@ -45,4 +45,16 @@ class LoginController extends Controller
         $this->performLogout($request);
         return redirect('/blogsfeed');
     }
+
+    /**
+     * Override validateLogin function implementing CAPTCHA validation
+     */
+    protected function validateLogin(Request $request)
+    {
+        $this->validate($request, [
+            $this->username() => 'required|string',
+            'password' => 'required|string',
+            'g-recaptcha-response' => 'validcaptcha',
+        ]);
+    }
 }

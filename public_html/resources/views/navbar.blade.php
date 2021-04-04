@@ -1,11 +1,11 @@
-<div id="nav_back" style="left: 0; width: 100vw; top: -20px; background-color: #ffffff; position: fixed; box-shadow: 1px 2px 1px #FDD26A; z-index: 10;">
+<div id="nav_back" style="left: 0; width: 100vw; top: -20px; background-color: #ffffff; position: fixed; box-shadow: 1px 1.1px 1px #FDD26A; z-index: 10;">
 <div id="navbar_desktop">
     <br/>
     <table id="header" class="table-responsive" style="width: 122%; margin-left: -15%; border: 0; margin-top: -10px;">
         <th style="text-align: center !important;">
             <div style="@if (Auth::check()) padding-left: 180px; @else padding-left:90px; @endif padding-right: 40px;">
                 <a href="{{url('/blogsfeed')}}">
-                    <img style="height: 70px; margin-left: 40px;" src="{{config('app.logo')}}">
+                    <img style="margin-top: 5%; margin-bottom: 5%; height: 30px; margin-left: 40px;" src="{{config('app.logo')}}">
                 </a>
                 <br/>
             </div>

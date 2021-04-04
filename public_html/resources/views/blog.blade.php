@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="shortcut icon" type="img/svg" href="{{ asset('ebuglefaviconlogo.svg') }}">
     <style type="text/css">
 
         .hrclass{
@@ -256,7 +257,7 @@
 
 
     <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-    <script>tinymce.init({selector:'textarea', height : "700", plugins: "link | lists | searchreplace | hr | media | table | insertdatetime | image imagetools | emoticons ",  menubar: "file | edit | format | insert", toolbar: "undo redo | bold italic forecolor backcolor align increase indent numlist bullist"}); </script>
+    <script>tinymce.init({selector:'textarea', height : "700", plugins: "link | lists | searchreplace | hr | media | table | insertdatetime | image imagetools | emoticons | autosave | wordcount ",  menubar: "file | edit | format | insert", toolbar: "undo redo | bold italic forecolor backcolor align increase indent numlist bullist emoticons restoredraft"}); </script>
     <!-- Latest compiled and minified CSS -->
 
     <link rel="stylesheet" type="text/css" href="main_responsive.css">
@@ -651,6 +652,21 @@ border-left: 1px solid #E1E9ED;"><h3 id="name_author" style="">{{$blog->name}}</
                                 <label for="form-file" style="padding-top: 10px;">Upload cover photo:</label>
                                         <input type="file" name="newsImg" id="form-file" class="form-control" style="margin-top: 5px; margin-bottom: 20px;"/>
 
+                                    <label>Category: </label>
+                                    <select name="category" id="category" class="form-control" required>
+                                        @foreach($categories as $category)
+                                            @if (isset($blog))
+                                            @if ($category->id == $blog->category)
+                                            <option value="{{$category->id}}" selected="selected">{{$category->name}}</option>
+                                            @else
+                                                <option value="{{$category->id}}">{{$category->name}}</option>
+                                            @endif
+                                            @else
+                                                <option value="{{$category->id}}">{{$category->name}}</option>
+                                            @endif
+                                            @endforeach
+                                    </select>
+                                    <br/>
 
                                 </div>
 

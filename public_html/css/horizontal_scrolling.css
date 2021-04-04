@@ -1,0 +1,64 @@
+body, html {
+    color: #fff;
+    text-align: center;
+    font-family: Helvetica, sans-serif;
+    margin: 0;
+}
+
+.grid-container {
+    box-shadow: 5px 0px 5px -6px #888;
+    float: left;
+    display: grid;
+    height: 245px;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas: "main main main";
+}
+
+.grid-item {
+    color: #fff;
+    padding: 3.5em 1em;
+    font-size: 1em;
+    font-weight: 700;
+}
+
+.header {
+    grid-area: header;
+    padding: 1em;
+}
+
+.title {
+    grid-area: title;
+}
+
+.main {
+    grid-area: main;
+    padding: 0;
+    overflow: hidden;
+}
+
+.footer {
+    grid-area: footer;
+    padding: 0.6em;
+}
+
+.items {
+    overflow: hidden;
+    white-space: nowrap;
+    transition: all 0.2s;
+    transform: scale(0.98);
+    will-change: transform;
+    user-select: none;
+    cursor: pointer;
+}
+
+.items.active {
+    background: rgba(255,255,255,0.3);
+    cursor: grabbing;
+    transform: scale(1);
+}
+
+.item {
+    display: inline-block;
+    height: 200px;
+}

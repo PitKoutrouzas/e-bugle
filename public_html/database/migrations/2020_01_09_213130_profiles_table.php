@@ -17,7 +17,8 @@ class ProfilesTable extends Migration
             $table->increments('id');
             $table->integer('userid')->nullable();
             $table->string('about', 500);
-            $table->string('bloginterests');
+            $table->string('bloginterests')->nullable();
+            $table->string('profilePic')->nullable();
             $table->timestamps();
         });
     }

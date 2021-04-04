@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="img/svg" href="{{ asset('ebuglefaviconlogo.svg') }}">
     <style type="text/css">
         .footer {
         left: 0;
@@ -30,6 +31,34 @@
             border-color: #ebc348 !important;
         }
 
+        #submit_btn {
+            text-align: center;
+            padding: 10px;
+            margin-top: 28px;
+            margin-bottom: 5%;
+            width: 180px;
+            color: #484848;
+            background-color: #5bc0de00 !important;
+            border-color: #a0a0a0;
+            letter-spacing: 0.5px;
+            font-size: 17px;
+        }
+
+        #submit_btn:hover {
+            color: #e2ba47 !important;
+            border-color: #e2ba47 !important;
+            text-align: center;
+            padding: 10px;
+            margin-top: 28px;
+            margin-bottom: 5%;
+            width: 180px;
+            color: #484848;
+            background-color: #5bc0de00 !important;
+            border-color: #a0a0a0;
+            letter-spacing: 0.5px;
+            font-size: 17px;
+        }
+
         @media all and (min-width:768px) {
             #navbar_login_desktop {display: inline;}
             #navbar_login_mobile {display: none;}
@@ -46,9 +75,20 @@
 
 {{--    <title>{{ config('app.name', 'E-Bugle') }}</title>--}}
 
-    <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <!-- Styles -->
     <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+
+    <!-- ReCaptcha-->
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+
+    <script>
+        function onSubmit(token) {
+            document.getElementById("captchaform").submit();
+        }
+    </script>
+
 </head>
 <body>
     <div id="app">
@@ -129,7 +169,7 @@
         <br/><br/><br/>
         @yield('content')
 
-        <div id="footer_bottom" style="position: absolute; bottom: -250px;">
+        <div id="footer_bottom" style="position: absolute; bottom: -280px;">
         @include('footer')
         </div>
     </div>

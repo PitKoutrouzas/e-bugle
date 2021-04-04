@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <link rel="stylesheet" type="text/css" href="../../public/css/desktop/blogsboard_desktop.css">
+    <link rel="shortcut icon" type="img/svg" href="{{ asset('ebuglefaviconlogo.svg') }}">
     <style type="text/css">
 
         .hrclass{
@@ -362,6 +363,24 @@
 
 
                     <br/>
+
+                                        {!! Form::open(['url'=>'blogsboard/'. $profile->userid]) !!}
+                                    <select id="categoryselect" name="category" class="form-control" onchange="this.form.submit()">
+                                        @if($selected_category == null)
+                                        <option value="0">All Categories</option>
+                                        @else
+                                            <option value="0">All Categories</option>
+                                        @endif
+                                        @foreach($categories as $category)
+                                            @if ($category->id == $selected_category)
+                                        <option selected="selected" value="{{$category->id}}">{{$category->name}}</option>
+                                                @else
+                                                    <option value="{{$category->id}}">{{$category->name}}</option>
+                                                @endif
+                                            @endforeach
+                                    </select>
+                                        {!! Form::close() !!}
+
                     @if ($profile==null)
                         <div id="profilebox" style="box-shadow: 1px 1px 20px gray; width: 25%; margin-top: -15%; margin-left: -15%; position: absolute; background-color: ghostwhite" >
                             <div style="max-width: 100%; background-color: #151515;">
@@ -461,6 +480,7 @@
                                                 </th>
                                                 <th>
 
+                                                    <p onclick="event.stopPropagation(); location.href='{{ url("blogsfeed/". $blog->category) }}';" style="color: #caa2527d; font-size: 17px;">{{$blog->categoryName}}</p>
                                                     <h4 class="formatted_description" value="{{$blog->formatted_description}}" style="text-decoration: none;">
 
                                                     </h4>

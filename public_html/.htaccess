@@ -19,6 +19,18 @@
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 </IfModule>
 
+#Disable index view
+Options -Indexes
+
+#Disable
+<Files .env>
+  Order allow,deny
+  Deny from all
+</Files>
+
     RewriteEngine On
     RewriteCond %{HTTP:X-Forwarded-Proto} =http
     RewriteRule .* https://%{HTTP:Host}%{REQUEST_URI} [L,R=permanent]
+
+    # Disable access to all dot files
+    RewriteRule (^.|/.) - [F]

@@ -15,9 +15,9 @@ class ProfileSeeder extends Seeder
     public function run()
     {
         $profile = new Profile;
-        $profile->about = Str::random(300);
+        $profile->userid = 0;
+        $profile->about = 'Update your bio';
         $profile->bloginterests = Str::random(10). ',' . Str::random(10). ',' .Str::random(10);
-
         $profile->save();
     }
 }

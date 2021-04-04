@@ -5,18 +5,18 @@
         <!-- Authentication Links -->
         <a class="navbar-brand" href="{{ url('/') }}">
             {{--                        {{ config('app.name', 'Laravel') }}--}}
-            <img style="height: 70px; margin-top: -20px;" src="{{config('app.logo')}}">
+            <img style="height: 30px; padding-right: 20px;" src="{{config('app.logo')}}">
 
         </a>
 
         @if (Auth::guest())
             @if(strpos(url()->current(), 'register'))
-                <li><a style="font-size: 18px; background-color: #fff; letter-spacing: 0.5px;" href="{{ route('login') }}">Login</a></li>
+                <li><a style="padding-top: 15px; font-size: 18px; background-color: #fff; letter-spacing: 0.5px;" href="{{ route('login') }}">Login</a></li>
             @elseif(strpos(url()->current(), 'login'))
-                <li><a style="font-size: 18px; background-color: #fff; letter-spacing: 0.5px;" href="{{ route('register') }}">Register</a></li>
+                <li><a style="padding-top: 15px; font-size: 18px; background-color: #fff; letter-spacing: 0.5px;" href="{{ route('register') }}">Register</a></li>
             @else
-                <li><a style="font-size: 18px; background-color: #fff; letter-spacing: 0.5px;" href="{{ route('login') }}">Login</a></li>
-                <li><a style="font-size: 18px; background-color: #fff; letter-spacing: 0.5px;" href="{{ route('register') }}">Register</a></li>
+                <li><a style="padding-top: 15px; font-size: 18px; background-color: #fff; letter-spacing: 0.5px;" href="{{ route('login') }}">Login</a></li>
+                <li><a style="padding-top: 15px; font-size: 18px; background-color: #fff; letter-spacing: 0.5px;" href="{{ route('register') }}">Register</a></li>
             @endif
         @else
             <li class="dropdown">

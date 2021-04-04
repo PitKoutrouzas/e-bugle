@@ -1,7 +1,7 @@
 .table-responsive th {    display: table;  width:50%;    }
 .table-responsive td {    display: table-row; }
 .blogImg {max-width:450px; height:200px;}
-#searchbar { margin-left: 0%; text-align: center;}
+#searchbar { margin-left: 0%; text-align: center; box-shadow: 1px 1px 1px #C2C2C2;}
 #searchinput { display: inline; margin-left: 0%;}
 #searchinput { width: 75%; !important;}
 #profilelink {margin-left: -5%; !important;}
@@ -30,6 +30,8 @@
 }
 
 .profimg_wrap {
+    width: 220px !important;
+    height: 250px !important;
     max-width: 400px;
     display: inline-block;
     border-radius: 50%;
@@ -43,3 +45,5 @@
 
 #navbar_desktop {display: none;}
 #navbar_mobile {display: inline;}
+
+#editcoverimg_div { margin-top: -5% !important;}

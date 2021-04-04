@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <link rel="stylesheet" type="text/css" href="../../public/css/desktop/blogsfeed_desktop.css">
+    <link rel="shortcut icon" type="img/svg" href="{{ asset('ebuglefaviconlogo.svg') }}">
     <style type="text/css">
 
         /*----footer css-----*/
@@ -200,6 +201,48 @@
             border-color: #ebc348 !important;
         }
 
+        .bubble {
+            border-radius: 0%;
+            display: inline-block;
+            font-weight: bold;
+            font-family: "Open Sans", serif;
+            color: #2a2a2a;
+            border-color: #f6dfb1;
+            /*border-style: solid;*/
+            /*border-bottom-style: double;*/
+            border-bottom-style: solid;
+            margin-top: -27px;
+        }
+
+        .bubblecategory {
+            display: inline-block;
+            transition: all .5s;
+            font-weight: bold;
+            color: #333;
+            border-color: #f6dfb1;
+            padding-top: 30px;
+            line-height: 300%;
+            /*border-style: solid;*/
+            /*border-bottom-style: double;*/
+            /*border-top-style: solid;*/
+        }
+
+        .bubblecategory:hover {
+            cursor: pointer;
+            transform: scale(1.25); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+        }
+
+        .bubbletrumpet {
+            width: 1.75%;
+            margin-top: -5px;
+            margin-right: -8px;
+            transform: scaleX(-1);
+        }
+
+        .selectedcategory{
+            color: #d6981e7d !important;
+        }
+
     </style>
     <meta charset="utf-8">
     <!-- Latest compiled JavaScript -->
@@ -223,6 +266,9 @@
     <link rel="stylesheet" href="layout.css">
     <link rel="stylesheet" type="text/css" href="resetCrafty.css">
     <link rel="stylesheet" type="text/css" href="main_responsive.css">
+
+    <link rel="stylesheet" href="{{asset('css/blog_stories.css')}}">
+    <link rel="stylesheet" href="{{asset('css/horizontal_scrolling.css')}}">
 
     <!-- jQuery library -->
 
@@ -271,8 +317,9 @@
         document.getElementById("deletenews").style.display = 'none';
         document.getElementById("newsshow").style.display = 'none';
         document.getElementById("backbutton").style.display = 'none';
-
     };
+
+
 </script>
 
 <div id="container">
@@ -303,9 +350,9 @@
                 <br/><br/>
             </div>
         @else
-                @include('navbar')
-            @endif
-                @include('navbar_mobile')
+            @include('navbar')
+        @endif
+        @include('navbar_mobile')
 
         <div class="table-responsive" style="width:100%; margin: auto;">
 
@@ -320,102 +367,153 @@
                     <br/><br/>
                     @if (Auth::check())
                         @if ($profile->coverImg != null)
-{{--                            <div style="margin-top: -1%; box-shadow: 1px 1px 50px gray; margin-left: -21.5%; margin-right: -21.5%; background-image: url({{asset('uploads/users/'.Auth::id().'/profile/cover/'.$profile->coverImg)}});--}}
-{{--                                    background-position: center; background-repeat: no-repeat;  background-color: #151515;">--}}
-                            <div>
+                           <div>
                                 @else
-{{--                                    <div style="margin-top: -1%; box-shadow: 1px 1px 50px gray; margin-left: -21.5%; margin-right: -21.5%; background-image: url('https://images.wallpaperscraft.com/image/bulb_lighting_rope_130830_2048x1152.jpg');--}}
-{{--                            background-position: center; background-repeat: no-repeat;  background-color: #151515;">--}}
-                                    <div>
+                                   <div>
                                         @endif
                                         @else
-{{--                                            <div style="margin-top: -1%; box-shadow: 1px 1px 50px gray; margin-left: -21.5%; margin-right: -21.5%; background-image: url('https://images.wallpaperscraft.com/image/bulb_lighting_rope_130830_2048x1152.jpg');--}}
-{{--                            background-position: center; background-repeat: no-repeat;  background-color: #151515;">--}}
-                                            <div>
+                                           <div>
                                                 @endif
 
                                                 <br/>
-                        <br/>
-                                                <h2 id="covertitle" style="text-align: center; font-size: 53px; font-weight: bold; letter-spacing: 2px; max-width: 100%; ">Top Articles</h2>
-                        <br/>
-{{--                        @if (Auth::check())--}}
-{{--                        <a id="newblogbtn" href="{{url('/blog/0')}}" class="btn btn-info btn-lg" style="color: white !important;">--}}
-{{--                            <span class="glyphicon glyphicon-plus"></span> New Blog--}}
-{{--                        </a>--}}
-{{--                        @else--}}
-{{--                            <a id="newblogbtn" href="{{url('/blog/0')}}" class="btn btn-info btn-lg" style="visibility: hidden; color: white !important;">--}}
-{{--                                <span class="glyphicon glyphicon-plus"></span> New Blog--}}
-{{--                            </a>--}}
-{{--                        @endif--}}
-                        <h5 style='border-bottom: 1px solid #d1cccc; margin-top:2%;'></h5>
-                    </div>
+                                                <br/>
+
+                                               @if (count($blogs) > 5)
+                                                   <p id="covertitle" style="float: left; text-align: left; margin-top: -1%; font-size: 38px; font-weight: bold; max-width: 100%; line-height: 1.3; letter-spacing: 2px; margin-left: 0;">Top Articles</p>
+                                                @if (Auth::check())
+                                                <a style="text-decoration: none;">
+                                                <p id="covertitle" onclick="location.href='{{ url("blog/0") }}'" style="float: right; margin-top: 0.8%; margin-right: 1%; font-weight: bold; color: #ebc248; cursor: pointer; font-size: 22px; font-weight: bold; max-width: 100%; line-height: 1.3; letter-spacing: 0.7px; margin-left: 0;"><span class="glyphicon glyphicon-plus"></span> New Article</p>
+                                                </a>
+                                                @endif
+
+                                                <div class="grid-container">
+                                                    <main class="grid-item main" style="background-color: white;">
+                                                        <div id="more_blogs" class="items" style="margin-left: 2%;">
+                                                            <table id="storyblogs_table" style="table-layout: fixed;">
+                                                                @foreach($blogs as $mb_index => $blog)
+                                                                    @if ($mb_index < 10)
+                                                                        <th class="storyblog_th">
+                                                                            <div class="more_blog | item">
+                                                                                <div id="middle_part" onclick="location.href='{{url("/blogsboard/". $blog->userid)}}';" style="cursor: pointer;"><img id="middle_part_profile" src="{{asset('uploads/users/'.$blog->userid.'/profile/photo/'.$blog->profilePic)}}" style="object-fit: cover; width: 88%; height: 88%;"></div>
+                                                                                <div id="top_part" onclick="location.href='{{url("/blog/". $blog->id)}}';" style="cursor: pointer;"><img src="{{asset('uploads/users/'.$blog->userid.'/blogs/'.$blog->imgUpload)}}" draggable="false" style="width: 100%; user-select: none; height: 210px; object-fit: cover; border-radius: 10%; opacity: 80%; pointer-events: none;"> </div>
+                                                                                <div id="bottom_part" onclick="location.href='{{url("/blog/". $blog->id)}}';" style="cursor: pointer;"><p id="bottom_part_description" style="">{{$blog->blogTitle}}</p></div>
+                                                                            </div>
+                                                                        </th>
+                                                                    @endif
+                                                                @endforeach
+                                                            </table>
+                                                        </div>
+                                                    </main>
+                                                </div>
+                                                   @else
+                                                   <p id="covertitle" style="text-align: center; font-size: 53px; font-weight: bold; letter-spacing: 2px; max-width: 100%; padding-top: 35px; padding-bottom: 15px; line-height: 1.3;">Top Articles</p>
+                                                   <a style="text-decoration: none;">
+                                                       <p id="covertitle" onclick="location.href='{{ url("blog/0") }}'" style="float: right; margin-top: 0.8%; margin-right: 1%; font-weight: bold; color: #ebc248; cursor: pointer; font-size: 22px; font-weight: bold; max-width: 100%; line-height: 1.3; letter-spacing: 0.7px; margin-left: 0;"><span class="glyphicon glyphicon-plus"></span> New Article</p>
+                                                   </a>
+                                                   <h5 id="titleline" style="border-bottom: 1px solid #d1cccc;"></h5>
+                                               @endif
 
 
-                    <div id="blogsfeed">
-                        <br/>
-                        <div class="wrapper" >
+                                                <div class="bubble">
+                                                    {{--                                                    <img class="bubbletrumpet" src="{{asset('ebuglefaviconlogo.svg')}}">--}}
+                                                    <div id="arts_category" class="bubblecategory @if(isset($category)) @if($category==1) selectedcategory @endif @endif" onclick="location.href='{{ url("blogsfeed/1") }}'" style="width: 210px;">
+                                                        <p style="text-align: center;">Arts & Entertainment</p>
+                                                    </div>
+                                                    {{--                                                    <img class="bubbletrumpet" src="{{asset('ebuglefaviconlogo.svg')}}">--}}
+                                                    <div id="business_category" class="bubblecategory @if(isset($category)) @if($category==2) selectedcategory @endif @endif" onclick="location.href='{{ url("blogsfeed/2") }}'" style="width: 200px;">
+                                                        <p style="text-align: center;">Business & Finance</p>
+                                                    </div>
 
-                            @foreach($blogs as $blog)
-                                <div class="feature" style="width: 100%; align-content: center;">
-                                    <div class="ficon" style="position: relative; text-align: center; color: white; margin-right: 0;">
+                                                    <div id="health_category" class="bubblecategory @if(isset($category)) @if($category==4) selectedcategory @endif @endif" onclick="location.href='{{ url("blogsfeed/4") }}'" style="width: 85px;">
+                                                        <p style="text-align: center;">Health</p>
+                                                    </div>
+
+                                                    <div id="social_category" class="bubblecategory @if(isset($category)) @if($category==6) selectedcategory @endif @endif" onclick="location.href='{{ url("blogsfeed/6") }}'" style="width: 75px;">
+                                                        <p style="text-align: center;">Social</p>
+                                                    </div>
+
+                                                    <div id="sciencetech_category" class="bubblecategory @if(isset($category)) @if($category==3) selectedcategory @endif @endif" onclick="location.href='{{ url("blogsfeed/3") }}'" style="width: 160px;">
+                                                        <p style="text-align: center;">Science & Tech</p>
+                                                    </div>
+                                                    <div id="travel_category" class="bubblecategory @if(isset($category)) @if($category==5) selectedcategory @endif @endif" onclick="location.href='{{ url("blogsfeed/5") }}'" style="width: 75px;">
+                                                        <p style="text-align: center;">Travel</p>
+                                                    </div>
+                                                    <div id="thoughts_category" class="bubblecategory @if(isset($category)) @if($category==7) selectedcategory @endif @endif" onclick="location.href='{{ url("blogsfeed/7") }}'" style="width: 105px;">
+                                                        <p style="text-align: center;">Thoughts</p>
+                                                    </div>
 
 
-                                    </div>
+                                                </div>
+                                            </div>
 
-                                    <a href="{{ url("blog/".$blog->id) }}" style=" text-decoration: none;">
-                                        <div href="{{ url("blog/".$blog->id) }}" class="details_exp" style="text-align: left; cursor: pointer;" onClick="location.href = '{{$blog}}'">
-                                            <h3 class="formatted_title" style="text-decoration: none; font-weight: bold;" value="{{$blog->formatted_blogTitle}}"></h3>
 
-                                            <table class="table-responsive" style="border: none;">
-                                                <th style="width: 50%; padding-right: 30px;">
-                                                    @if ($blog->imgUpload != null)
-                                                        <img class="blogImg" src="{{asset('uploads/users/'.$blog->userid.'/blogs/'.$blog->imgUpload)}}" alt="" style="padding-right: 50%; max-height: 300px;"/>
-                                                    @else
-                                                        <img class="blogImg" src="https://www.finelawn.co.nz/wp-content/uploads/2014/12/600x250.gif" alt="" style="padding-right: 50%; max-height: 300px;"/>
+                                            <div id="blogsfeed" style="margin-top: -2%;">
+                                                <br/>
+                                                <div class="wrapper" >
+
+                                                    @foreach($blogs as $blog)
+                                                        <div class="feature" style="width: 100%; align-content: center;">
+                                                            <div class="ficon" style="position: relative; text-align: center; color: white; margin-right: 0;">
+
+
+                                                            </div>
+
+
+                                                                <div onclick="location.href='{{ url("blog/".$blog->id) }}'" class="details_exp" style="text-align: left; cursor: pointer;">
+                                                                    <a style=" text-decoration: none;">
+                                                                    <h3 class="formatted_title" style="text-decoration: none; font-weight: bold;" value="{{$blog->formatted_blogTitle}}"></h3>
+
+                                                                    <table class="table-responsive" style="border: none;">
+                                                                        <th style="width: 50%; padding-right: 30px;">
+                                                                            @if ($blog->imgUpload != null)
+                                                                                <img class="blogImg" src="{{asset('uploads/users/'.$blog->userid.'/blogs/'.$blog->imgUpload)}}" alt="" style="padding-right: 50%; max-height: 300px;"/>
+                                                                            @else
+                                                                                <img class="blogImg" src="https://www.finelawn.co.nz/wp-content/uploads/2014/12/600x250.gif" alt="" style="padding-right: 50%; max-height: 300px;"/>
+                                                                            @endif
+                                                                        </th>
+                                                                        <th>
+
+                                                                            <p onclick="event.stopPropagation(); location.href='{{ url("blogsfeed/". $blog->category) }}';" style="color: #caa2527d; font-size: 17px;">{{$blog->categoryName}}</p>
+                                                                                <h4 class="formatted_description" value="{{$blog->formatted_description}}" style="text-decoration: none;">
+
+                                                                            </h4>
+
+
+                                                                            more details<span>→</span>
+                                                                            <br/><br/>
+                                                                            <h5 id="blog_details"><span class="glyphicon glyphicon-time"></span> {{$blog->formatted_created_at}}
+                                                                                @if ($blog->formatted_updated_at !== $blog->formatted_created_at)
+                                                                                    (updated: {{$blog->formatted_updated_at}})
+                                                                                @endif<br/> <a href="{{url("/blogsboard/". $blog->userid)}}"><span class="glyphicon glyphicon-user"></span> {{$blog->name}} </a></h5>
+                                                                        </th>
+                                                                    </table>
+
+
+                                                                    </a>
+                                                                </div>
+
+
+                                                        </div>
+                                                        <br/>
+                                                    @endforeach
+
+                                                    @if ($blogs instanceof \Illuminate\Pagination\LengthAwarePaginator)
+                                                        {{$blogs->links("pagination::default")}}
                                                     @endif
-                                                </th>
-                                                <th>
 
-                                                    <h4 class="formatted_description" value="{{$blog->formatted_description}}" style="text-decoration: none;">
-
-                                                    </h4>
-
-
-                                                    more details<span>→</span>
-                                                    <br/><br/>
-                                                    <h5 id="blog_details"><span class="glyphicon glyphicon-time"></span> {{$blog->formatted_created_at}}
-                                                        @if ($blog->formatted_updated_at !== $blog->formatted_created_at)
-                                                            (updated: {{$blog->formatted_updated_at}})
-                                                        @endif<br/> <a href="{{url("/blogsboard/". $blog->userid)}}"><span class="glyphicon glyphicon-user"></span> {{$blog->name}} </a></h5>
-                                                </th>
-                                            </table>
-
-
-
-                                        </div>
-                                    </a>
-
-                                </div>
-                                <br/>
-                            @endforeach
-
-                            @if ($blogs instanceof \Illuminate\Pagination\LengthAwarePaginator)
-                                {{$blogs->links("pagination::default")}}
-                            @endif
-
-                            <script>highlightKeywords();</script>
-                        </div>
-                    </div>
+                                                    <script>highlightKeywords();</script>
+                                                </div>
+                                            </div>
                 </section>
             </header>
         </div>
 
         <!-- TELOS PINAKA -->
 
-    <br/>
-            <div id="footer_bottom" style="position: absolute; margin-left: -21.5%; margin-top: 12%">
-                @include('footer')
-            </div>
+        <br/>
+        <div id="footer_bottom" style="position: absolute; margin-left: -21.5%; margin-top: 12%">
+            @include('footer')
+        </div>
 
     </newscolumn>
 
@@ -424,6 +522,35 @@
 
 
 </body>
+
+<script>
+    const slider = document.querySelector(".items");
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+
+    slider.addEventListener('mousedown', (e) => {
+        isDown = true;
+        slider.classList.add('active');
+        startX = e.pageX - slider.offsetLeft;
+        scrollLeft = slider.scrollLeft;
+    });
+    slider.addEventListener('mouseleave', () => {
+        isDown = false;
+        slider.classList.remove('active');
+    });
+    slider.addEventListener('mouseup', () => {
+        isDown = false;
+        slider.classList.remove('active');
+    });
+    slider.addEventListener('mousemove', (e) => {
+        if(!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - slider.offsetLeft;
+        const walk = (x - startX) * 3; //scroll-fast
+        slider.scrollLeft = scrollLeft - walk;
+    });
+</script>
 
 
 </html>

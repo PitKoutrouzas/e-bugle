@@ -12,6 +12,7 @@
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="shortcut icon" type="img/svg" href="{{ asset('ebuglefaviconlogo.svg') }}">
     <style type="text/css">
 
         .hrclass{
@@ -431,7 +432,7 @@
                                             @if (Auth::check())
                                                 @if (Auth::id() == $profile->userid)
                                                     {!! Form::open(['url'=>'profileEdit', 'files' => true]) !!}
-                                                    <a id="editcoverimg_btn" class="btn btn-primary"  type="button" style="text-align: center; border-color: #a0a0a0; letter-spacing: 0.5px; padding: 10px; background-color: #5bc0de00 !important; color: #4C4C4C; font-size: 18px; " onclick="document.getElementById('changeCoverImg').click();">Change cover image</a>
+                                                    <button id="editcoverimg_btn" class="btn btn-primary" style="text-align: center; border-color: #a0a0a0; letter-spacing: 0.5px; padding: 10px; background-color: #5bc0de00 !important; color: #4C4C4C; font-size: 18px; " onclick="document.getElementById('changeCoverImg').click();">Change cover image</button>
                                                     <input type="file" onchange="readCoverURL(this);" name="coverImg" id="changeCoverImg" class="form-control" style="display: none;"/>
                                                 @endif
                                             @endif
@@ -490,8 +491,7 @@
                                         <input class="form-control" name="name" style="text-align: justify; max-width: 90%; word-wrap: anywhere; margin-left: 5%; color: #767575; margin-right: 5%;" value="{{$profile->name}}">
                                         <br/>
                                         <label style="color: #484848; font-weight: bold;">Bio:</label>
-                                        <textarea class="form-control" name="bio2" style="display: none; text-align: justify; max-width: 90%; margin-left: 5%; color: #767575; margin-right: 5%;" maxlength="383" rows="5">{{$profile->about}}</textarea>
-                                        <textarea class="form-control" name="bio" style="text-align: justify; max-width: 90%; margin-left: 5%; color: #767575; margin-right: 5%;" maxlength="383" rows="5">{{$profile->about}}</textarea>
+                                        <textarea class="form-control" name="bio" style="text-align: justify; max-width: 90%; margin-left: 5%; color: #767575; margin-right: 5%;" maxlength="383" rows="14">{{$profile->about}}</textarea>
                                         <button id="save_btn" class="btn btn-primary" style="text-align: center; padding: 10px; margin-top: 28px; margin-bottom: 5%; width: 120px; color: #484848; background-color: #5bc0de00 !important; border-color: #a0a0a0; letter-spacing: 0.5px; font-size: 18px;" type="submit" value="Submit">Save</button>
                                         {!! Form::close() !!}
                                     @else
@@ -544,7 +544,7 @@
 
 
 <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 
 <div style="margin-left: -21.5%;">
 @include('footer')

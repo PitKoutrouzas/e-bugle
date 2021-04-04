@@ -26,6 +26,8 @@ Route::get('blogsboardDelete/{id}', 'BlogsController@deleteBlog');
 Route::get('blog/{id}', 'BlogsController@showBlog');
 Route::get('blogsfeed', 'BlogsController@feed');
 Route::post('blogsfeed', 'BlogsController@feed');
+Route::get('blogsfeed/{category}', 'BlogsController@feedWithCategory');
+Route::post('blogsfeed/{category}', 'BlogsController@feedWithCategory');
 
 
 Auth::routes();
