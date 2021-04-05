@@ -33,4 +33,4 @@ Options -Indexes
     RewriteRule .* https://%{HTTP:Host}%{REQUEST_URI} [L,R=permanent]
 
     # Disable access to all dot files
-    RewriteRule (^.|/.) - [F]
+    # RewriteRule (^.|/.) - [F]

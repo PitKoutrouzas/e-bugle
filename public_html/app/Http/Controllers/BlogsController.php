@@ -116,9 +116,12 @@ class BlogsController extends Controller
         $namesearch = $retrieveBlogs["namesearch"];
         $profile = Profile::getProfileDetails($id);
 
+        $categories = Category::all();
+        $selected_category = null;
+
         $agent = new Agent();
 
-        return view("/blogsboard", compact("newschange", "relpath", "userLoggedArr", "blogs", "namesearch", "profile", "agent"));
+        return view("/blogsboard", compact("newschange", "relpath", "userLoggedArr", "blogs", "namesearch", "profile", "agent", "categories", "selected_category"));
     }
 
     public function showBlog($id){
@@ -375,8 +378,8 @@ class BlogsController extends Controller
 //        $blog->blogTitle = $blogTitle;
 //        $blog->description = $blogcontent;
 
-
         return $this->show(Auth::id());
+//        return $this->index(Auth::id(), null);
     }
 
     public function addBlogViewFormatting($blogs, $request){

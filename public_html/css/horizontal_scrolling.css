@@ -34,7 +34,8 @@ body, html {
 .main {
     grid-area: main;
     padding: 0;
-    overflow: hidden;
+    overflow-x: auto;
+    overflow-y: hidden;
 }
 
 .footer {
@@ -43,7 +44,8 @@ body, html {
 }
 
 .items {
-    overflow: hidden;
+    overflow-x: auto;
+    overflow-y: hidden;
     white-space: nowrap;
     transition: all 0.2s;
     transform: scale(0.98);

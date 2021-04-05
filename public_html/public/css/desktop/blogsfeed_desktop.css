@@ -8,6 +8,7 @@
     #navbar_mobile {display: none;}
     /*#footer_bottom {bottom: -35vh;}*/
     #storyblogs_table { width:120%; }
+    .bubble{ display: inline-block; }
     #titleline {display: none;}
 }
 
@@ -21,6 +22,7 @@
     #navbar_mobile {display: none;}
     /*#footer_bottom {bottom: -45vh;}*/
     #storyblogs_table { width:120%; }
+    .bubble{ display: inline-block; }
     #titleline {display: none;}
 }
 
@@ -36,6 +38,7 @@
     #navbar_mobile {display: none;}
     /*#footer_bottom {bottom: -95vh;}*/
     #storyblogs_table { width:155%; }
+    .bubble{ display: inline-block; }
     #titleline {display: none;}
 }
 
@@ -55,7 +58,7 @@
     #navbar_mobile {display: inline;}
     /*#footer_bottom {bottom: -105vh;}*/
     #storyblogs_table { width:205%; }
-    .bubble {display: none !important;}
+    .bubble {display: none;}
     #titleline {margin-top: 12%;}
 }
 
@@ -85,6 +88,7 @@
     #covertitle {margin-left: 12%; margin-right: 20%;}
     /*#footer_bottom {bottom: -155vh;}*/
     #storyblogs_table { width:300%; }
-    .bubble {display: none !important;}
+    .bubble {display: none;}
     #titleline {margin-top: 25%;}
+    .wrapper {margin-top: 15%;}
 }

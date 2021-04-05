@@ -365,7 +365,8 @@
                     <br/>
 
                                         {!! Form::open(['url'=>'blogsboard/'. $profile->userid]) !!}
-                                    <select id="categoryselect" name="category" class="form-control" onchange="this.form.submit()">
+                                    <div id="categoryselect">
+                                        <select name="category" class="form-control" onchange="this.form.submit()">
                                         @if($selected_category == null)
                                         <option value="0">All Categories</option>
                                         @else
@@ -379,6 +380,7 @@
                                                 @endif
                                             @endforeach
                                     </select>
+                                    </div>
                                         {!! Form::close() !!}
 
                     @if ($profile==null)

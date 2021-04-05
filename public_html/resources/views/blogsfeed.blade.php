@@ -203,7 +203,6 @@
 
         .bubble {
             border-radius: 0%;
-            display: inline-block;
             font-weight: bold;
             font-family: "Open Sans", serif;
             color: #2a2a2a;
@@ -412,6 +411,7 @@
                                                    </a>
                                                    <h5 id="titleline" style="border-bottom: 1px solid #d1cccc;"></h5>
                                                @endif
+                                               <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 
 
                                                 <div class="bubble">
@@ -550,6 +550,53 @@
         const walk = (x - startX) * 3; //scroll-fast
         slider.scrollLeft = scrollLeft - walk;
     });
+    slider.addEventListener('mousedown', (e) => {
+        isDown = true;
+        slider.classList.add('active');
+        startX = e.pageX - slider.offsetLeft;
+        scrollLeft = slider.scrollLeft;
+    });
+    slider.addEventListener('mouseleave', () => {
+        isDown = false;
+        slider.classList.remove('active');
+    });
+    slider.addEventListener('mouseup', () => {
+        isDown = false;
+        slider.classList.remove('active');
+    });
+    slider.addEventListener('mousemove', (e) => {
+        if(!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - slider.offsetLeft;
+        const walk = (x - startX) * 3; //scroll-fast
+        slider.scrollLeft = scrollLeft - walk;
+    });
+
+    // slider.addEventListener('touchstart', (e) => {
+    //     isDown = true;
+    //     slider.classList.add('active');
+    //     startX = e.pageX - slider.offsetLeft;
+    //     scrollLeft = slider.scrollLeft;
+    //     // alert("touch start");
+    // });
+    // slider.addEventListener('touchend', () => {
+    //     isDown = false;
+    //     slider.classList.remove('active');
+    //     // alert("touch end");
+    // });
+    // slider.addEventListener('touchcancel', () => {
+    //     isDown = false;
+    //     slider.classList.remove('active');
+    //     // alert("touch cancel");
+    // });
+    // slider.addEventListener('touchmove', (e) => {
+    //     if(!isDown) return;
+    //     e.preventDefault();
+    //     const x = e.pageX - slider.offsetLeft;
+    //     const walk = (x - startX) * 3; //scroll-fast
+    //     slider.scrollLeft = scrollLeft - walk;
+    //     // alert("touch move");
+    // });
 </script>
 
 
