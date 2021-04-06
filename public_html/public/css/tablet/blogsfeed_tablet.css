@@ -14,5 +14,7 @@
 #navbar_mobile {display: inline;}
 /*#footer_bottom {bottom: -105vh;}*/
 #storyblogs_table { width:205%; }
-.bubble {display: none;}
+.bubble {visibility: hidden;
+    width: 0;
+    height: 0; display: none;}
 #titleline {margin-top: 12%;}

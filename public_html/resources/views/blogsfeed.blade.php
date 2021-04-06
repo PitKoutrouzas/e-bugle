@@ -404,14 +404,17 @@
                                                         </div>
                                                     </main>
                                                 </div>
+                                                   <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
                                                    @else
                                                    <p id="covertitle" style="text-align: center; font-size: 53px; font-weight: bold; letter-spacing: 2px; max-width: 100%; padding-top: 35px; padding-bottom: 15px; line-height: 1.3;">Top Articles</p>
+                                                   @if (Auth::check())
                                                    <a style="text-decoration: none;">
                                                        <p id="covertitle" onclick="location.href='{{ url("blog/0") }}'" style="float: right; margin-top: 0.8%; margin-right: 1%; font-weight: bold; color: #ebc248; cursor: pointer; font-size: 22px; font-weight: bold; max-width: 100%; line-height: 1.3; letter-spacing: 0.7px; margin-left: 0;"><span class="glyphicon glyphicon-plus"></span> New Article</p>
                                                    </a>
+                                                   @endif
                                                    <h5 id="titleline" style="border-bottom: 1px solid #d1cccc;"></h5>
                                                @endif
-                                               <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
 
 
                                                 <div class="bubble">

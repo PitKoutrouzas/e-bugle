@@ -432,7 +432,7 @@
                                             @if (Auth::check())
                                                 @if (Auth::id() == $profile->userid)
                                                     {!! Form::open(['url'=>'profileEdit', 'files' => true]) !!}
-                                                    <button id="editcoverimg_btn" class="btn btn-primary" style="text-align: center; border-color: #a0a0a0; letter-spacing: 0.5px; padding: 10px; background-color: #5bc0de00 !important; color: #4C4C4C; font-size: 18px; " onclick="document.getElementById('changeCoverImg').click();">Change cover image</button>
+                                                    <span id="editcoverimg_btn" class="btn" style="text-align: center; border-color: #a0a0a0; letter-spacing: 0.5px; padding: 10px; background-color: #5bc0de00 !important; color: #4C4C4C; font-size: 18px; " onclick="document.getElementById('changeCoverImg').click();">Change cover image</span>
                                                     <input type="file" onchange="readCoverURL(this);" name="coverImg" id="changeCoverImg" class="form-control" style="display: none;"/>
                                                 @endif
                                             @endif
